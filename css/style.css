@@ -21,7 +21,7 @@ svg:not(:root) {
 .labels-source {
     font-family: 'Roboto Condensed', sans-serif;
     fill: white;
-    font-size: 18px;
+    font-size: 12px;
 }
 
 .labels-lg {

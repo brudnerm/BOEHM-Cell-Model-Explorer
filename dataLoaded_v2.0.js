@@ -28,6 +28,7 @@ function parse(d) {
         WGS: d["WGS"],
         pairedGermline: d["pairedGermline"],
         pairedTumor: d["pairedTumor"],
+        genomicTriad: d["genomicTriad"],
         gender: d["gender"],
         race: d["race"],
         treatmentHistory: d["treatmentHistory"],
@@ -41,7 +42,7 @@ function dataLoaded(err, data) {
     // d3's nest function
     // we defined 2 levels of grouping (.key)
     
-    var nest = makeNest(data, "primaryDisease", "Subtype", "subSource")
+    var nest = makeNest(data, "primaryDisease", "Subtype", "subSource" )
 
     var newData = [];
 
@@ -68,8 +69,7 @@ function dataLoaded(err, data) {
                 
                 f.parent = e.key
                 f.count = f.values.length;
-                fullCount.push(f.values.length)
-                
+                fullCount.push(f.values.length)                
          
                 newData.push({
                     sequence: d.key + ";;" + e.key + ";;" + f.key,
@@ -80,8 +80,7 @@ function dataLoaded(err, data) {
             })
         })
         d.count = d3.sum(fullCount);
-    })
-    
+    })    
     
 console.log("newData", newData)
     var sunData = buildHierarchy(newData)
@@ -104,7 +103,7 @@ function buildHierarchy(csv) {
 
         var sequence = d.sequence;
         var size = d.size;
-        var cellLines = d.cellLines;
+        
 
         // var size = +csv[i][1];
         // if (isNaN(size)) { 
@@ -144,7 +143,7 @@ function buildHierarchy(csv) {
                 childNode = {
                     "name": nodeName,
                     "size": size,
-//                    "cellLines" : cellLines
+                    "cellLines": d.values
                 };
                 children.push(childNode);
             }

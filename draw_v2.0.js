@@ -81,6 +81,9 @@ function draw(json) {
                 return "white"
             }
         })
+    
+    
+    
         .style("opacity", function (d) {
 
             if (d.depth == 0) {
@@ -108,7 +111,14 @@ function draw(json) {
             }
         })
         .on("click", click);
-
+    
+    var outerLeaves = g.filter(function(d){ return d.depth == 3})
+    
+    outerLeaves.each(function(d){    
+        var this_ = d3.select(this) 
+        drawCircles(this_, d)
+    })
+    
     // http://bl.ocks.org/kaz-a/5c26993b5ee7096c8613e0a77bdd972b
     var text = g.append("text")
         .attr("class", "labels-lg")
@@ -222,6 +232,7 @@ function draw(json) {
                         .attr("opacity", 1)
                         .attr("transform", function (f) {
                             var rotation = computeTextRotation(f);
+                       // console.log(arc.centroid, f)
                             var x = arc.centroid(f)[0];
                             var y = arc.centroid(f)[1];
                             var offset = radius / 10;
@@ -378,10 +389,11 @@ function draw(json) {
                 };
         };
     }
+    
 };
 
 function mouseover(d) {
-    //    console.log(d)
+        console.log(d)
 }
 
 function TempDrawFilter(input) {
@@ -398,3 +410,33 @@ function drawNewPlot(sunburst_filter) {
     return sunburst_filter
     //    console.log("data", sunburst_filter)
 }
+
+
+
+function drawCircles(dom, data){
+    
+  //  var rotation = computeTextRotation(d);
+    var x = arc.centroid(data)[0];
+    var y = arc.centroid(data)[1];
+    
+    var cellLines = data["cellLines"].filter(function(d){ return d.genomicTriad == "Test"})    
+    
+    var circles = dom.selectAll(".circleNode")
+        .data(cellLines)
+        .enter()
+        .append("circle")
+        .attr("class", "circle")
+        .attr("r", 5)
+//        .attr("cx", x)
+//        .attr("cy", y)
+        .style("fill", "red")
+        .attr("transform", function (d, i) {
+        
+            // the i is an index for each in the list of circles. so if 
+            return "translate(" + (x) + "," + (y) + ")";
+        })
+    
+    
+    
+}
+
