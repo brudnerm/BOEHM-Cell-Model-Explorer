@@ -2,7 +2,7 @@ var x = d3.scale.linear()
     .range([0, 2 * Math.PI]);
 
 var y = d3.scale.linear()
-    .range([0, radius]);
+    .range([0, radius * 1.25]);
 
 var partition = d3.layout.partition()
     .value(function (d) {
@@ -18,10 +18,27 @@ var arc = d3.svg.arc()
         return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx)));
     })
     .innerRadius(function (d) {
-        return Math.max(0, y(d.y));
+        //        return Math.max(0, y(d.y));
+        if (d.depth == 0) {
+            return Math.max(0, y(d.y));
+        } else if (d.depth == 1) {
+            return Math.max(0, y(d.y));
+        } else if (d.depth == 2) {
+            return Math.max(0, y(d.y));
+        } else if (d.depth == 3) {
+            return Math.max(0, y(d.y) * .8);
+        }
     })
     .outerRadius(function (d) {
-        return Math.max(0, y(d.y + d.dy));
+        if (d.depth == 0) {
+            return Math.max(0, y(d.y + d.dy));
+        } else if (d.depth == 1) {
+            return Math.max(0, y(d.y + d.dy));
+        } else if (d.depth == 2) {
+            return Math.max(0, y(d.y + d.dy) * .8);
+        } else if (d.depth == 3) {
+            return Math.max(0, y(d.y + d.dy) * .7);
+        }
     });
 
 function draw(json) {
@@ -40,7 +57,7 @@ function draw(json) {
         var extent = d3.extent(subSize, function (f) {
             return f
         })
-        var opacityScale = d3.scale.pow().exponent(.25).range([1, .5]).domain(extent)
+        var opacityScale = d3.scale.pow().exponent(.25).range([.5, 1]).domain(extent)
         child.forEach(function (e) {
             var opacity;
             var sourceSize = d3.sum(e.children, function (f) {
@@ -86,7 +103,7 @@ function draw(json) {
             if (d.depth == 0) {
                 return 0
             } else if (d.depth == 1) {
-                return 0
+                return 0.07
             } else if (d.depth == 2) {
                 //                return d.opacity
                 return 1
@@ -107,16 +124,8 @@ function draw(json) {
                 return 0.5
             }
         })
-        .on("click", click);
-
-    var outerLeaves = g.filter(function (d) {
-        return d.depth == 3
-    })
-
-    outerLeaves.each(function (d) {
-        var this_ = d3.select(this)
-        drawCircles(this_, d)
-    })
+        .on("click", click)
+        .on("mouseover", mouseover)
 
     // http://bl.ocks.org/kaz-a/5c26993b5ee7096c8613e0a77bdd972b
     var text = g.append("text")
@@ -125,7 +134,7 @@ function draw(json) {
             var rotation = computeTextRotation(d);
             var x = arc.centroid(d)[0];
             var y = arc.centroid(d)[1];
-            var offset = radius / 10;
+            var offset = radius / 7;
             if (rotation > 90) {
                 offset = offset * -1
             }
@@ -143,8 +152,12 @@ function draw(json) {
         .attr("dx", "0") // margin
         .attr("dy", ".35em") // vertical-align
         .text(function (d) {
-            if (d.depth == 1 && d.dx > 0.005) {
-                return d.name + " (" + d.value + ")";
+            if (d.depth == 1 && d.dx > 0.01) {
+                if (computeTextRotation(d) > 90) {
+                    return "(" + d.value + ") " + d.name;
+                } else {
+                    return d.name + " (" + d.value + ")";
+                }
             }
         })
         .style("fill", function (d) {
@@ -152,13 +165,23 @@ function draw(json) {
                 return colors[d.name]
             }
         })
+        .on("click", click)
 
-
-
+    var circles = g.each(function (d) {
+        var this_ = d3.select(this)
+        drawCircles(this_, d)
+    })
 
 
     function click(d) {
-        console.log(d);
+        console.log("click", d)
+        console.log(circles)
+        var newG = g.filter(function (e) {
+            return e.name == d.name
+            var this_ = d3.select(this)
+//            drawCircles(this_, d)
+        })
+        drawCircles(newG, d)
         var isRoot = TempDrawFilter(d);
         var isDepth = identifyDepth(d);
         text.transition().attr("opacity", 0);
@@ -171,7 +194,7 @@ function draw(json) {
                     if (e.depth == 0) {
                         return 0
                     } else if (e.depth == 1) {
-                        return 0
+                        return 0.07
                     } else if (e.depth == 2) {
                         return 1
                     } else if (e.depth == 3) {
@@ -183,14 +206,15 @@ function draw(json) {
                     }
                 } else if (isDepth == 1) {
                     if (e.depth == 1) {
-                        return .5
+                        return .07
                     } else if (e.depth == 2) {
-                        return 1
+                          return 1
+//                        return e.opacity
                     } else if (e.depth == 3) {
                         if (e.name == "CCLF") {
                             return .8
                         } else {
-                            return 0
+                            return .25
                         }
                     }
                 } else if (isDepth == 2) {
@@ -220,16 +244,13 @@ function draw(json) {
                 }
             })
             .each("end", function (e, i) {
+
                 // check if the animated element's data e lies within the visible angle span given in d
                 if (e.x >= d.x && e.x < (d.x + d.dx)) {
-
-//                    var arcHighlight = d3.select(this.parentNode).selectAll("circle");
-//                    arcHighlight.transition().duration(750)
-//                        .attr("opacity", .5)
-                            
-
+                    
                     // get a selection of the associated text element
-                    var arcText = d3.select(this.parentNode).select("text");                    
+                    var arcText = d3.select(this.parentNode).select("text");
+                    var arcCircles = d3.select(this.parentNode).select("circle");
                     // fade in the text element and recalculate positions
                     arcText.transition().duration(750)
                         .attr("opacity", 1)
@@ -238,10 +259,13 @@ function draw(json) {
                             // console.log(arc.centroid, f)
                             var x = arc.centroid(f)[0];
                             var y = arc.centroid(f)[1];
-                            var offset = radius / 10;
+                            var offset = radius / 7;
                             if (f.depth == 2) {
-                                offset = radius / 7.5
+                                offset = radius / 11
+                            } else if (f.depth == 3) {
+                                offset = radius / 12
                             }
+
                             if (rotation > 90) {
                                 offset = offset * -1
                             }
@@ -263,6 +287,8 @@ function draw(json) {
                                 } else if (f.depth == 3) {
                                     return "translate(" + (x + xOffset) + "," + (y + yOffset) + ")rotate(" + rotation + ")"
                                 }
+                            } else if (isDepth == 3) {
+                                return "translate(0, 45)"
                             }
                         })
                         .attr("text-anchor", function (f) {
@@ -298,41 +324,59 @@ function draw(json) {
                         })
                         .text(function (f) {
                             if (isDepth == 0) {
-                                if (f.depth == 1 && f.dx > 0.005) {
-                                    return f.name + " (" + f.value + ")";
+                                if (f.depth == 1 && f.dx > 0.01) {
+                                    if (computeTextRotation(f) > 90) {
+                                        return "(" + f.value + ") " + f.name;
+                                    } else {
+                                        return f.name + " (" + f.value + ")";
+                                    }
                                 }
                             } else if (isDepth == 1) {
-                                if (f.depth < 3) {
-                                    return f.name + " (" + f.value + ")";
-                                } else if (f.depth == 3 && f.name == "CCLF") {
-                                    return f.name + " (" + f.value + ")";
+                                if (f.depth == 1) {
+                                    return f.value + " " + f.name + " " + " cell models"
+                                } else if (f.depth == 2) {
+                                    if (computeTextRotation(f) > 90) {
+                                        return "(" + f.value + ") " + f.name;
+                                    } else {
+                                        return f.name + " (" + f.value + ")";
+                                    }
+                                } else if (f.depth == 3) {
+                                    if (computeTextRotation(f) > 90) {
+                                        return "(" + f.value + ") " + f.name;
+                                    } else {
+                                        return f.name + " (" + f.value + ")";
+                                    }
                                 }
                             } else if (isDepth == 2) {
                                 if (f.depth > 1) {
                                     if (f.depth == 2) {
                                         if (f.value == 1) {
-                                            return f.name + " (" + f.value + " Cellular Model)"
+                                            return f.value + " " + f.name + " " + " cell model"
                                         } else {
-                                            return f.name + " (" + f.value + " Cellular Models)"
+                                            return f.value + " " + f.name + " " + " cell models"
                                         }
                                     }
                                 }
                                 if (f.depth == 3) {
-                                    return f.name + " (" + f.value + ")"
+                                    if (computeTextRotation(f) > 90) {
+                                        return "(" + f.value + ") " + f.name;
+                                    } else {
+                                        return f.name + " (" + f.value + ")";
+                                    }
                                 }
                             } else if (isDepth == 3) {
                                 if (f.depth == 3) {
                                     if (f.name == "CCLF") {
                                         if (f.value == 1) {
-                                            return f.name + " has generated " + f.value + " cellular model"
+                                            return f.value + " " + f.parent.name + " cell model"
                                         } else {
-                                            return f.name + " has generated " + f.value + " cellular models"
+                                            return f.value + " " + f.parent.name + " cell models"
                                         }
                                     } else {
                                         if (f.value == 1) {
-                                            return f.name + " has " + f.value + " cellular model"
+                                            return f.value + " " + f.parent.name + " cell model"
                                         } else {
-                                            return f.name + " has " + f.value + " cellular models"
+                                            return f.value + " " + f.parent.name + " cell models"
                                         }
                                     }
                                 }
@@ -343,6 +387,8 @@ function draw(json) {
                                 return colors[(d.children ? d : d.parent).name]
                             } else if (isDepth > 1 && d.depth == 2) {
                                 return colors[(d.parent).name]
+                            } else if (isDepth == 3 && d.depth == 3) {
+                                return colors["White"]
                             }
                         })
                         .attr("class", function (f) {
@@ -357,7 +403,7 @@ function draw(json) {
                                 } else if (f.depth == 2) {
                                     return "labels-subtype"
                                 } else if (f.depth == 3) {
-                                    return "labels-source"
+                                    return "labels-subtype"
                                 }
                             } else if (isDepth == 2) {
                                 if (f.depth == 2) {
@@ -369,6 +415,7 @@ function draw(json) {
                                 return "labels-extralg"
                             }
                         })
+
                 }
             });
     }
@@ -377,7 +424,7 @@ function draw(json) {
     function arcTween(d) {
         var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
             yd = d3.interpolate(y.domain(), [d.y, 1]),
-            yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
+            yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius * 1.25]);
         return function (d, i) {
             return i ?
                 function (t) {
@@ -391,10 +438,10 @@ function draw(json) {
         };
     }
 
-};
+}; //end draw function
 
 function mouseover(d) {
-    console.log(d)
+//    console.log("mouseover d", d)
 }
 
 function TempDrawFilter(input) {
@@ -403,7 +450,7 @@ function TempDrawFilter(input) {
 }
 
 function identifyDepth(input) {
-    console.log("depth", input.depth)
+    console.log("isDepth", input.depth)
     return input.depth
 }
 
@@ -418,38 +465,63 @@ function computeTextRotation(d) {
 }
 
 function drawCircles(dom, data) {
-    var x = arc.centroid(data)[0];
-    var y = arc.centroid(data)[1];
-    var rotation = computeTextRotation(data);
-    var offset = radius * .15;
-    if (rotation > 90) {offset = offset * -1};
-    var xOffset = (offset * Math.cos(Math.PI * rotation / 180));
-    var yOffset = (offset * Math.sin(Math.PI * rotation / 180));
-    var cellLines = data["cellLines"].filter(function (d) {
-        return d.genomicTriad == "Test"
+
+    var circleGroup = dom.filter(function (d) {
+        return d["cellLines"]
     })
-    var circles = dom.selectAll(".circleNode")
-        .data(cellLines)
-        .enter()
-        .append("circle")
-        .attr("class", "circle")
-        .attr("r", 5)
-        .attr("cx", x + xOffset)
-        .attr("cy", y + yOffset)
-        .style("fill", "red")
-    //        .attr("transform", function (d, i) {
-    //            
-    //            var offset = radius / 10;
-    //            if (rotation > 90) {
-    //                offset = offset * -1
-    //            }
-    //            var xOffset = (offset * Math.cos(Math.PI * rotation / 180));
-    //            var yOffset = (offset * Math.sin(Math.PI * rotation / 180));
-    //            console.log("x", xOffset, "y", yOffset)
-    //            // the i is an index for each in the list of circles. so if 
-    //            return "translate(" + (x + xOffset) + "," + (y + yOffset) + ")rotate(0,0)";
-    //        })
 
+    circleGroup.each(function (d) {
+        var cellLines = data["cellLines"].filter(function (d) {
+            return d.genomicTriad == "Test"
+        })
 
+        var x = arc.centroid(d)[0];
+        var y = arc.centroid(d)[1];
+        var rotation = computeTextRotation(d);
+        var offset = radius * 0.1;
+        if (rotation > 90) {
+            offset = offset * -1
+        }
+        var xOffset = (offset * Math.cos(Math.PI * rotation / 180));
+        var yOffset = (offset * Math.sin(Math.PI * rotation / 180));
+        
+        var circleX = x + xOffset;
+        var circleY = y + yOffset;
+
+        var circles = circleGroup.selectAll(".circleNode")  
+            .data(cellLines)
+
+        circles.exit().remove()
+
+        circles
+            .enter()
+            .append("circle")
+            .attr("class", "circle")
+            .attr("r", 4)
+            .attr("cx", circleX)
+            .attr("cy", circleY)
+            .style("fill", "red")
+
+        circles.transition().duration(750)
+            .attr("r", 4)
+            .attr("cx", circleX)
+            .attr("cy", circleY)
+            .style("fill", "blue")
+            
+//            .each("end", function (e, i) {
+////            console.log("e", e)
+////            if (e.x >= d.x && e.x < (d.x + d.dx)) {
+//            if (e.genomicTriad == "Test") {
+//                var selectedCircles = d3.select(this.parentNode).select("circle");
+//                selectedCircles.transition().duration(750)
+//                    .attr("cx", circleX)
+//                    .attr("cy", circleY)
+//            }
+//        })
+//            .attr("transform", function (d, i) {
+//                return "translate(" + 0 + "," + 0 + ")rotate(" + 0 + ")"
+//        })
+        
+    })
 
 }

@@ -2,7 +2,7 @@ var x = d3.scale.linear()
     .range([0, 2 * Math.PI]);
 
 var y = d3.scale.linear()
-    .range([0, radius]);
+    .range([0, radius * 1.25]);
 
 var partition = d3.layout.partition()
     .value(function (d) {
@@ -18,10 +18,27 @@ var arc = d3.svg.arc()
         return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx)));
     })
     .innerRadius(function (d) {
-        return Math.max(0, y(d.y));
+        //        return Math.max(0, y(d.y));
+        if (d.depth == 0) {
+            return Math.max(0, y(d.y));
+        } else if (d.depth == 1) {
+            return Math.max(0, y(d.y));
+        } else if (d.depth == 2) {
+            return Math.max(0, y(d.y));
+        } else if (d.depth == 3) {
+            return Math.max(0, y(d.y) * .8);
+        }
     })
     .outerRadius(function (d) {
-        return Math.max(0, y(d.y + d.dy));
+        if (d.depth == 0) {
+            return Math.max(0, y(d.y + d.dy));
+        } else if (d.depth == 1) {
+            return Math.max(0, y(d.y + d.dy));
+        } else if (d.depth == 2) {
+            return Math.max(0, y(d.y + d.dy) * .8);
+        } else if (d.depth == 3) {
+            return Math.max(0, y(d.y + d.dy) * .7);
+        }
     });
 
 function draw(json) {
@@ -86,7 +103,7 @@ function draw(json) {
             if (d.depth == 0) {
                 return 0
             } else if (d.depth == 1) {
-                return 0
+                return 0.07
             } else if (d.depth == 2) {
                 //                return d.opacity
                 return 1
@@ -116,7 +133,7 @@ function draw(json) {
             var rotation = computeTextRotation(d);
             var x = arc.centroid(d)[0];
             var y = arc.centroid(d)[1];
-            var offset = radius / 10;
+            var offset = radius / 7;
             if (rotation > 90) {
                 offset = offset * -1
             }
@@ -134,33 +151,34 @@ function draw(json) {
         .attr("dx", "0") // margin
         .attr("dy", ".35em") // vertical-align
         .text(function (d) {
-            if (d.depth == 1 && d.dx > 0.005) {
-                return d.name + " (" + d.value + ")";
+            if (d.depth == 1 && d.dx > 0.01) {
+                if (computeTextRotation(d) > 90) {
+                    return "(" + d.value + ") " + d.name;
+                } else {
+                    return d.name + " (" + d.value + ")";
+                }
             }
         })
         .style("fill", function (d) {
             if (d.depth == 1) {
                 return colors[d.name]
             }
-        })                  
-                                   
-        g.each(function(d){
-            var this_ = d3.select(this)
-            drawCircles(this_, d)
         })
-    
-    
+
+    g.each(function (d) {
+        var this_ = d3.select(this)
+        drawCircles(this_, d)
+    })
+
+
 
 
     function click(d) {
 
-        var newG = g.filter(function(e){ return e.name == d.name })
-        newG.each(function(e){
-            var this_ = d3.select(this)
-            drawCircles(this_, d)
+        var newG = g.filter(function (e) {
+            return e.name == d.name
         })
-        
-          
+
         var isRoot = TempDrawFilter(d);
         var isDepth = identifyDepth(d);
         text.transition().attr("opacity", 0);
@@ -173,7 +191,7 @@ function draw(json) {
                     if (e.depth == 0) {
                         return 0
                     } else if (e.depth == 1) {
-                        return 0
+                        return 0.07
                     } else if (e.depth == 2) {
                         return 1
                     } else if (e.depth == 3) {
@@ -192,7 +210,7 @@ function draw(json) {
                         if (e.name == "CCLF") {
                             return .8
                         } else {
-                            return 0
+                            return .25
                         }
                     }
                 } else if (isDepth == 2) {
@@ -225,6 +243,18 @@ function draw(json) {
 
                 // check if the animated element's data e lies within the visible angle span given in d
                 if (e.x >= d.x && e.x < (d.x + d.dx)) {
+
+                    newG.each(function (e) {
+                        var this_ = d3.select(this)
+
+                        console.log("newG", newG)
+                        console.log("this", this_)
+                        console.log("e", e)
+                        if (d.depth == 3) {
+                            drawCircles(this_, e)
+                        }
+
+                    })
                     // get a selection of the associated text element
                     var arcText = d3.select(this.parentNode).select("text");
                     // fade in the text element and recalculate positions
@@ -235,10 +265,13 @@ function draw(json) {
                             // console.log(arc.centroid, f)
                             var x = arc.centroid(f)[0];
                             var y = arc.centroid(f)[1];
-                            var offset = radius / 10;
+                            var offset = radius / 7;
                             if (f.depth == 2) {
-                                offset = radius / 7.5
+                                offset = radius / 11
+                            } else if (f.depth == 3) {
+                                offset = radius / 12
                             }
+
                             if (rotation > 90) {
                                 offset = offset * -1
                             }
@@ -260,6 +293,8 @@ function draw(json) {
                                 } else if (f.depth == 3) {
                                     return "translate(" + (x + xOffset) + "," + (y + yOffset) + ")rotate(" + rotation + ")"
                                 }
+                            } else if (isDepth == 3) {
+                                return "translate(0, 45)"
                             }
                         })
                         .attr("text-anchor", function (f) {
@@ -295,41 +330,59 @@ function draw(json) {
                         })
                         .text(function (f) {
                             if (isDepth == 0) {
-                                if (f.depth == 1 && f.dx > 0.005) {
-                                    return f.name + " (" + f.value + ")";
+                                if (f.depth == 1 && f.dx > 0.01) {
+                                    if (computeTextRotation(f) > 90) {
+                                        return "(" + f.value + ") " + f.name;
+                                    } else {
+                                        return f.name + " (" + f.value + ")";
+                                    }
                                 }
                             } else if (isDepth == 1) {
-                                if (f.depth < 3) {
-                                    return f.name + " (" + f.value + ")";
-                                } else if (f.depth == 3 && f.name == "CCLF") {
-                                    return f.name + " (" + f.value + ")";
+                                if (f.depth == 1) {
+                                    return f.value + " " + f.name + " " + " cell models"
+                                } else if (f.depth == 2) {
+                                    if (computeTextRotation(f) > 90) {
+                                        return "(" + f.value + ") " + f.name;
+                                    } else {
+                                        return f.name + " (" + f.value + ")";
+                                    }
+                                } else if (f.depth == 3) {
+                                    if (computeTextRotation(f) > 90) {
+                                        return "(" + f.value + ") " + f.name;
+                                    } else {
+                                        return f.name + " (" + f.value + ")";
+                                    }
                                 }
                             } else if (isDepth == 2) {
                                 if (f.depth > 1) {
                                     if (f.depth == 2) {
                                         if (f.value == 1) {
-                                            return f.name + " (" + f.value + " Cellular Model)"
+                                            return f.value + " " + f.name + " " + " cell model"
                                         } else {
-                                            return f.name + " (" + f.value + " Cellular Models)"
+                                            return f.value + " " + f.name + " " + " cell models"
                                         }
                                     }
                                 }
                                 if (f.depth == 3) {
-                                    return f.name + " (" + f.value + ")"
+                                    if (computeTextRotation(f) > 90) {
+                                        return "(" + f.value + ") " + f.name;
+                                    } else {
+                                        return f.name + " (" + f.value + ")";
+                                    }
                                 }
                             } else if (isDepth == 3) {
                                 if (f.depth == 3) {
                                     if (f.name == "CCLF") {
                                         if (f.value == 1) {
-                                            return f.name + " has generated " + f.value + " cellular model"
+                                            return f.value + " " + f.parent.name + " cell model"
                                         } else {
-                                            return f.name + " has generated " + f.value + " cellular models"
+                                            return f.value + " " + f.parent.name + " cell models"
                                         }
                                     } else {
                                         if (f.value == 1) {
-                                            return f.name + " has " + f.value + " cellular model"
+                                            return f.value + " " + f.parent.name + " cell model"
                                         } else {
-                                            return f.name + " has " + f.value + " cellular models"
+                                            return f.value + " " + f.parent.name + " cell models"
                                         }
                                     }
                                 }
@@ -340,6 +393,8 @@ function draw(json) {
                                 return colors[(d.children ? d : d.parent).name]
                             } else if (isDepth > 1 && d.depth == 2) {
                                 return colors[(d.parent).name]
+                            } else if (isDepth == 3 && d.depth == 3) {
+                                return colors["White"]
                             }
                         })
                         .attr("class", function (f) {
@@ -354,7 +409,7 @@ function draw(json) {
                                 } else if (f.depth == 2) {
                                     return "labels-subtype"
                                 } else if (f.depth == 3) {
-                                    return "labels-source"
+                                    return "labels-subtype"
                                 }
                             } else if (isDepth == 2) {
                                 if (f.depth == 2) {
@@ -375,7 +430,7 @@ function draw(json) {
     function arcTween(d) {
         var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
             yd = d3.interpolate(y.domain(), [d.y, 1]),
-            yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
+            yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius * 1.25]);
         return function (d, i) {
             return i ?
                 function (t) {
@@ -389,75 +444,76 @@ function draw(json) {
         };
     }
 
-};  //end draw function
+}; //end draw function
 
 function mouseover(d) {
     console.log("mouseover d", d)
 }
+
 function TempDrawFilter(input) {
     //    console.log("input", input.name)
     return input.name
 }
+
 function identifyDepth(input) {
     console.log("isDepth", input.depth)
     return input.depth
 }
+
 function drawNewPlot(sunburst_filter) {
     return sunburst_filter
     //    console.log("data", sunburst_filter)
 }
+
 function computeTextRotation(d) {
     var ang = (x(d.x + d.dx / 2) - Math.PI / 2) / Math.PI * 180;
     return (ang > 90) ? 180 + ang : ang;
 }
 
 function drawCircles(dom, data) {
-    var circleGroup = dom.filter(function(d){
-        return d.cellLines
+    console.log("drawing circles...")
+    //    console.log("data", data)
+    //    console.log("dom", dom)
+    var circleGroup = dom.filter(function (d) {
+        return d["cellLines"]
     })
-    circleGroup.each(function(d){
-        drawCirc(d)
-    })
-    
-    
-    //console.log("data!", data)
-//    if (data["cellLines"]){
-//        console.log("yes")
-//    }
-//    var cellLines = data["cellLines"];
-//    
-//    var x = arc.centroid(data)[0];
-//    var y = arc.centroid(data)[1];
-//
-//    var rotation = computeTextRotation(data);
-//    var offset = radius * 0.15;
-//    if (rotation > 90) {
-//        offset = offset * -1
-//    }
-//
-//    var xOffset = (offset * Math.cos(Math.PI * rotation / 180));
-//    var yOffset = (offset * Math.sin(Math.PI * rotation / 180));
-//// NOT d3.selectAll....try using circle group
-//    var circles = d3.selectAll(".circleNode")
-//        .data(cellLines)
-//
-//    circles.exit().remove()
-//
-//    circles
-//        .enter()
-//        .append("circle")
-//        .attr("class", "circle")
-//        .attr("r", 5)
-//        .attr("cx", x + xOffset)
-//        .attr("cy", y + yOffset)
-//        .style("fill", "red")
-//
-//
-//    circles.transition().duration(750)
-//        .attr("r", 5)
-//        .attr("cx", x + xOffset)
-//        .attr("cy", y + yOffset)
-//        .style("fill", "red")
+    //    console.log("circleGroup", circleGroup)
 
+    circleGroup.each(function (d) {
+        //        drawCirc(d)
+        //        console.log("check", d)
+
+        // NOT d3.selectAll....try using circle group
+        var circles = circleGroup.select("#circleNode")
+            .data(d)
+
+        var x = arc.centroid(d)[0];
+        var y = arc.centroid(d)[1];
+        var rotation = computeTextRotation(d);
+        var offset = radius * 0.15;
+        if (rotation > 90) {
+            offset = offset * -1
+        }
+        var xOffset = (offset * Math.cos(Math.PI * rotation / 180));
+        var yOffset = (offset * Math.sin(Math.PI * rotation / 180));
+
+        circles.exit().remove()
+
+        circles
+            .enter()
+            .append("circle")
+            .attr("class", "circle")
+            .attr("r", 5)
+            .attr("cx", x + xOffset)
+            .attr("cy", y + yOffset)
+            .style("fill", "red")
+
+        circles.transition().duration(750)
+            .attr("r", 5)
+            .attr("cx", x + xOffset)
+            .attr("cy", y + yOffset)
+            .style("fill", "red")
+
+    })
 
 }
