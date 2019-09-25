@@ -58,9 +58,7 @@ function draw(json) {
                 return "white"
             }
         })
-
         .style("opacity", function (d) {
-
             if (d.depth == 0) {
                 return 0
             } else if (d.depth == 1) {
@@ -128,32 +126,48 @@ function draw(json) {
         })
         .on("click", click)
 
-   g.each(function (d) {
-        // d is all data thats in any g. on click this data is reduced to 1 datum.
-        // 1 datum can not be referenced as a forEach
-        var this_ = d3.select(this)
-        drawCircles(this_, d)
-    })
-    // var circles = g.append("g")
-    //     .attr("class", "circle-g")
+   // g.each(function (d) {
+   //      // d is all data thats in any g. on click this data is reduced to 1 datum.
+   //      // 1 datum can not be referenced as a forEach
+   //      var this_ = d3.select(this)
+   //      drawCircles(this_, d)
+   //  })
+
+   var circleG = g.append("g")
+    .attr("class", "circleG")
+    .attr("transform", function (d) {
+            var rotation = computeTextRotation(d);
+            var x = arc.centroid(d)[0];
+            var y = arc.centroid(d)[1];
+            var offset = radius / 7;
+            if (rotation > 90) {
+                offset = offset * -1
+            }
+            var xOffset = (offset * Math.cos(Math.PI * rotation / 180));
+            var yOffset = (offset * Math.sin(Math.PI * rotation / 180));
+            return "translate(" + (x + xOffset) + "," + (y + yOffset) + ")rotate(" + rotation + ")";
+        })
+
+    var circles = circleG.selectAll(".circle")
+        .data(function(d){
+            return d["cellLines"].filter(function(d){ return d.genomicTriad == "Test" })
+        })
+        .enter()
+        .append("circle")
+        .attr("class", "circle")
+        .attr("r", 4)
+        .style("fill", "red")
+        .attr("cx", 0)
+        .attr("cy", 0)
 
 
 
     function click(d) {
 
-
-        // d3.selectAll("g").each(function (e) {
-        // var this_ = d3.select(this)
-        // drawCircles(this_, e)
-        //  })
-
-
-
-        
-
         var isRoot = TempDrawFilter(d);
         var isDepth = identifyDepth(d);
         text.transition().attr("opacity", 0);
+        circleG.transition().attr("opacity", 0);
 
         path.transition()
             .duration(750)
@@ -216,10 +230,41 @@ function draw(json) {
 
                 // check if the animated element's data e lies within the visible angle span given in d
                 if (e.x >= d.x && e.x < (d.x + d.dx)) {
+
                     
+
                     // get a selection of the associated text element
                     var arcText = d3.select(this.parentNode).select("text");
-                    var arcCircles = d3.select(this.parentNode).select("circle");
+                
+                    var arcCircleG = d3.selectAll(".circleG").filter(function(f){
+                        console.log(f.name == e.name)
+                        return f.name == e.name
+                    })
+
+
+
+
+                   
+                    arcCircleG.transition().duration(750)
+                        .attr("opacity", 1)
+                        .attr("transform", function (f) {
+                                var rotation = computeTextRotation(f);
+                                var x = arc.centroid(f)[0];
+                                var y = arc.centroid(f)[1];
+                                var offset = radius / 7;
+                                if (rotation > 90) {
+                                    offset = offset * -1
+                                }
+                                var xOffset = (offset * Math.cos(Math.PI * rotation / 180));
+                                var yOffset = (offset * Math.sin(Math.PI * rotation / 180));
+                                return "translate(" + (x + xOffset) + "," + (y + yOffset) + ")rotate(" + rotation + ")";
+                            })
+
+
+
+
+
+
                     // fade in the text element and recalculate positions
                     arcText.transition().duration(750)
                         .attr("opacity", 1)

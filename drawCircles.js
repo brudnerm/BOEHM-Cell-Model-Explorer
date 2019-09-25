@@ -2,20 +2,21 @@ function drawCircles(dom, datum) {
 
 // datum is 1 data point. not an array. for each group element, this function runs,
 // using the 'g' (dom) and 'd' (datum)
+
 if (datum["cellLines"] != undefined){
 
         var x = arc.centroid(datum)[0];
         var y = arc.centroid(datum)[1];
-        var rotation = computeTextRotation(datum);
-        var offset = radius * 0.1;
-        if (rotation > 90) {
-            offset = offset * -1
-        }
-        var xOffset = (offset * Math.cos(Math.PI * rotation / 180));
-        var yOffset = (offset * Math.sin(Math.PI * rotation / 180));
+        // var rotation = computeTextRotation(datum);
+        // var offset = radius * 0.1;
+        // if (rotation > 90) {
+        //     offset = offset * -1
+        // }
+        // var xOffset = (offset * Math.cos(Math.PI * rotation / 180));
+        // var yOffset = (offset * Math.sin(Math.PI * rotation / 180));
         
-        var circleX = x + xOffset;
-        var circleY = y + yOffset;
+        // var circleX = x + xOffset;
+        // var circleY = y + yOffset;
 
 
 
@@ -28,12 +29,15 @@ if (datum["cellLines"] != undefined){
             .append("circle")
             .attr("class", "circle")
             .attr("r", 4)
-            .attr("cx", circleX)
-            .attr("cy", circleY)
+            .attr("cx", x)
+            .attr("cy", y)
             .style("fill", "red")
 
-
-
+        circles.transition().duration(500)
+            .attr("r", 4)
+            .attr("cx", x)
+            .attr("cy", y)
+            .style("fill", "red")
 }
 
 

@@ -97,6 +97,7 @@ function buildHierarchy(csv) {
 
     var root = {
         "name": "root",
+        "cellLines": [],
         "children": []
     };
 
