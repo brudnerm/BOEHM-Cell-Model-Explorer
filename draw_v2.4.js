@@ -1,45 +1,4 @@
-var x = d3.scale.linear()
-    .range([0, 2 * Math.PI]);
 
-var y = d3.scale.linear()
-    .range([0, radius * 1.25]);
-
-var partition = d3.layout.partition()
-    .value(function (d) {
-        return d.size;
-        var size = d.size
-    });
-
-var arc = d3.svg.arc()
-    .startAngle(function (d) {
-        return Math.max(0, Math.min(2 * Math.PI, x(d.x)));
-    })
-    .endAngle(function (d) {
-        return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx)));
-    })
-    .innerRadius(function (d) {
-        //        return Math.max(0, y(d.y));
-        if (d.depth == 0) {
-            return Math.max(0, y(d.y));
-        } else if (d.depth == 1) {
-            return Math.max(0, y(d.y));
-        } else if (d.depth == 2) {
-            return Math.max(0, y(d.y));
-        } else if (d.depth == 3) {
-            return Math.max(0, y(d.y) * .8);
-        }
-    })
-    .outerRadius(function (d) {
-        if (d.depth == 0) {
-            return Math.max(0, y(d.y + d.dy));
-        } else if (d.depth == 1) {
-            return Math.max(0, y(d.y + d.dy));
-        } else if (d.depth == 2) {
-            return Math.max(0, y(d.y + d.dy) * .8);
-        } else if (d.depth == 3) {
-            return Math.max(0, y(d.y + d.dy) * .7);
-        }
-    });
 
 function draw(json) {
 
@@ -78,10 +37,12 @@ function draw(json) {
 
     var g = vis.selectAll("g")
         .data(partition.nodes(json))
-        .enter().append("g");
+        .enter().append("g")
+        .attr("class", "g");
 
     var path = g.append("path")
         .attr("d", arc)
+        .attr("class", "path")
         .style("fill", function (d) {
             if (d.depth == 1) {
                 return colors[d.name];
@@ -167,21 +128,29 @@ function draw(json) {
         })
         .on("click", click)
 
-    var circles = g.each(function (d) {
+   g.each(function (d) {
+        // d is all data thats in any g. on click this data is reduced to 1 datum.
+        // 1 datum can not be referenced as a forEach
         var this_ = d3.select(this)
         drawCircles(this_, d)
     })
+    // var circles = g.append("g")
+    //     .attr("class", "circle-g")
+
 
 
     function click(d) {
-        console.log("click", d)
-        console.log(circles)
-        var newG = g.filter(function (e) {
-            return e.name == d.name
-            var this_ = d3.select(this)
-//            drawCircles(this_, d)
-        })
-        drawCircles(newG, d)
+
+
+        // d3.selectAll("g").each(function (e) {
+        // var this_ = d3.select(this)
+        // drawCircles(this_, e)
+        //  })
+
+
+
+        
+
         var isRoot = TempDrawFilter(d);
         var isDepth = identifyDepth(d);
         text.transition().attr("opacity", 0);
@@ -464,64 +433,4 @@ function computeTextRotation(d) {
     return (ang > 90) ? 180 + ang : ang;
 }
 
-function drawCircles(dom, data) {
 
-    var circleGroup = dom.filter(function (d) {
-        return d["cellLines"]
-    })
-
-    circleGroup.each(function (d) {
-        var cellLines = data["cellLines"].filter(function (d) {
-            return d.genomicTriad == "Test"
-        })
-
-        var x = arc.centroid(d)[0];
-        var y = arc.centroid(d)[1];
-        var rotation = computeTextRotation(d);
-        var offset = radius * 0.1;
-        if (rotation > 90) {
-            offset = offset * -1
-        }
-        var xOffset = (offset * Math.cos(Math.PI * rotation / 180));
-        var yOffset = (offset * Math.sin(Math.PI * rotation / 180));
-        
-        var circleX = x + xOffset;
-        var circleY = y + yOffset;
-
-        var circles = circleGroup.selectAll(".circleNode")  
-            .data(cellLines)
-
-        circles.exit().remove()
-
-        circles
-            .enter()
-            .append("circle")
-            .attr("class", "circle")
-            .attr("r", 4)
-            .attr("cx", circleX)
-            .attr("cy", circleY)
-            .style("fill", "red")
-
-        circles.transition().duration(750)
-            .attr("r", 4)
-            .attr("cx", circleX)
-            .attr("cy", circleY)
-            .style("fill", "blue")
-            
-//            .each("end", function (e, i) {
-////            console.log("e", e)
-////            if (e.x >= d.x && e.x < (d.x + d.dx)) {
-//            if (e.genomicTriad == "Test") {
-//                var selectedCircles = d3.select(this.parentNode).select("circle");
-//                selectedCircles.transition().duration(750)
-//                    .attr("cx", circleX)
-//                    .attr("cy", circleY)
-//            }
-//        })
-//            .attr("transform", function (d, i) {
-//                return "translate(" + 0 + "," + 0 + ")rotate(" + 0 + ")"
-//        })
-        
-    })
-
-}

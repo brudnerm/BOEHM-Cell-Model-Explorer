@@ -83,9 +83,9 @@ function dataLoaded(err, data) {
         d.count = d3.sum(fullCount);
     })    
     
-console.log("newData", newData)
+
     var sunData = buildHierarchy(newData)
-console.log("sunData", sunData)
+
     draw(sunData)
 }
 
@@ -133,7 +133,8 @@ function buildHierarchy(csv) {
                 if (!foundChild) {
                     childNode = {
                         "name": nodeName,
-                        "children": []
+                        "children": [],
+                        "cellLines": []
                     };
                     children.push(childNode);
                 }
@@ -149,6 +150,6 @@ function buildHierarchy(csv) {
             }
         }
     })
-    console.log("root", root)
+    
     return root;
 };
