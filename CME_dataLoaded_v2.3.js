@@ -102,7 +102,6 @@ function buildHierarchy(csv) {
         var sequence = d.sequence;
         var size = d.size;
         
-
         // var size = +csv[i][1];
         // if (isNaN(size)) { 
         // e.g. if this is a header row
@@ -127,6 +126,7 @@ function buildHierarchy(csv) {
                         break;
                     }
                 }
+                
                 // If we don't already have a child node for this branch, create it.
                 if (!foundChild) {
                     childNode = {
@@ -137,6 +137,7 @@ function buildHierarchy(csv) {
                 }
                 currentNode = childNode;
             } else {
+                
                 // Reached the end of the sequence; create a leaf node.
                 childNode = {
                     "name": nodeName,
