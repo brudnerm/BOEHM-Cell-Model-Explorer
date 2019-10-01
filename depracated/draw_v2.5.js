@@ -1,5 +1,4 @@
 
-
 function draw(json) {
 
     //     DETERMINE OPACITY SETTINGS FOR SUBTYPES
@@ -231,20 +230,16 @@ function draw(json) {
                 // check if the animated element's data e lies within the visible angle span given in d
                 if (e.x >= d.x && e.x < (d.x + d.dx)) {
 
-                    
-
+        
                     // get a selection of the associated text element
-                    var arcText = d3.select(this.parentNode).select("text");
-                
+                    var arcText = d3.select(this.parentNode).select("text");            
                     var arcCircleG = d3.selectAll(".circleG").filter(function(f){
-                        console.log(f.name == e.name)
+//                        console.log("d", d)
+//                        console.log("e", e)
+//                        console.log("f", f)
                         return f.name == e.name
                     })
 
-
-
-
-                   
                     arcCircleG.transition().duration(750)
                         .attr("opacity", 1)
                         .attr("transform", function (f) {
@@ -259,11 +254,6 @@ function draw(json) {
                                 var yOffset = (offset * Math.sin(Math.PI * rotation / 180));
                                 return "translate(" + (x + xOffset) + "," + (y + yOffset) + ")rotate(" + rotation + ")";
                             })
-
-
-
-
-
 
                     // fade in the text element and recalculate positions
                     arcText.transition().duration(750)
@@ -464,7 +454,7 @@ function TempDrawFilter(input) {
 }
 
 function identifyDepth(input) {
-    console.log("isDepth", input.depth)
+//    console.log("isDepth", input.depth)
     return input.depth
 }
 
