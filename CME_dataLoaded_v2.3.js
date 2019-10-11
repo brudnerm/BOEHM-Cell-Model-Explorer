@@ -148,6 +148,6 @@ function buildHierarchy(csv) {
             }
         }
     })
-    console.log("root", root)
     return root;
+    identifyDepth(root)
 };

@@ -7,7 +7,7 @@ var y = d3.scale.linear()
 var partition = d3.layout.partition()
     .value(function (d) {
         return d.size;
-        var size = d.size
+        var size = d.size 
     });
 
 var arc = d3.svg.arc()
@@ -19,29 +19,16 @@ var arc = d3.svg.arc()
     })
     .innerRadius(function (d) {
         //        return Math.max(0, y(d.y));
-        if (d.depth == 0) {
-            return Math.max(0, y(d.y));
-        } else if (d.depth == 1) {
-            return Math.max(0, y(d.y));
-        } else if (d.depth == 2) {
-            return Math.max(0, y(d.y));
-        } else if (d.depth == 3) {
-            return Math.max(0, y(d.y) * .8);
-        }
-    })
+        if (d.depth == 0) { return Math.max(0, y(d.y)); } 
+        else if (d.depth == 1) { return Math.max(0, y(d.y)); } 
+        else if (d.depth == 2) { return Math.max(0, y(d.y)); } 
+        else if (d.depth == 3) { return Math.max(0, y(d.y) * .8); } })
     .outerRadius(function (d) {
-        if (d.depth == 0) {
-            return Math.max(0, y(d.y + d.dy));
-        } else if (d.depth == 1) {
-            return Math.max(0, y(d.y + d.dy));
-        } else if (d.depth == 2) {
-            return Math.max(0, y(d.y + d.dy) * .8);
-        } else if (d.depth == 3) {
-            return Math.max(0, y(d.y + d.dy) * .7);
-        }
-    });
-
-// Interpolate the scales!
+        if (d.depth == 0) { return Math.max(0, y(d.y + d.dy)); } 
+        else if (d.depth == 1) { return Math.max(0, y(d.y + d.dy)); } 
+        else if (d.depth == 2) { return Math.max(0, y(d.y + d.dy) * .8); } else if (d.depth == 3) { return Math.max(0, y(d.y + d.dy) * .7); } })
+    .cornerRadius(4)
+    
 function arcTween(d) {
     var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
         yd = d3.interpolate(y.domain(), [d.y, 1]),
@@ -59,17 +46,8 @@ function arcTween(d) {
     };
 }
 
-function mouseover(d) {
-    console.log("mouseover d", d)
-}
-
-function TempDrawFilter(input) {
-    //    console.log("input", input.name)
-    return input.name
-}
 
 function identifyDepth(input) {
-    console.log("isDepth", input.depth)
     return input.depth
 }
 
@@ -83,7 +61,35 @@ function computeTextRotation(d) {
     return (ang > 90) ? 180 + ang : ang;
 }
 
+var setLocationCenter = "translate(0, 45)"
 
+function setLocation (d, offsetValue) {
+    var rotation = computeTextRotation(d);
+            var x = arc.centroid(d)[0];
+            var y = arc.centroid(d)[1];
+            var offset = radius / offsetValue;
+            if (rotation > 90) { offset = offset * -1 }
+            var xOffset = x + (offset * Math.cos(Math.PI * rotation / 180));
+            var yOffset = y + (offset * Math.sin(Math.PI * rotation / 180));
+            return "translate(" + xOffset + "," + yOffset + ")rotate(" + rotation + ")";
+}
+
+function namePlusTextNumber (input) {
+    if (input.value == 1) { return input.value + " " + input.name + " cell model" }
+    else { return input.value + " " + input.name + " cell models"}
+}
+
+function namePlusParaNumber (input) {
+    var truncate;
+    if (input.name.length > 13) {truncate = "..."}
+    else {var truncate = ""}
+    if (input.depth != 1) {
+        if (computeTextRotation(input) > 90) { return "(" + input.value + ") " + input.name.substring(0,13) + truncate; } 
+        else { return input.name.substring(0,13) + truncate + " (" + input.value + ")"; } }
+    else {
+        if (computeTextRotation(input) > 90) { return "(" + input.value + ") " + input.name; } 
+        else { return input.name + " (" + input.value + ")"; } }
+}
 
 //     DETERMINE OPACITY SETTINGS FOR SUBTYPES
 //    json.children.forEach(function (d) {
@@ -113,7 +119,3 @@ function computeTextRotation(d) {
 //            e.opacity = opacity;
 //        })
 //    })
-
-//    .data(function(d){
-//            return d["info"].filter(function(d){ return d.genomicTriad == "Test" })
-//        })

@@ -26,7 +26,6 @@ function draw(json) {
                 return "white"
             }
         })
-
         .style("opacity", function (d) {
 
             if (d.depth == 0) {
@@ -244,6 +243,7 @@ function draw(json) {
                             }
                             var xOffset = (offset * Math.cos(Math.PI * rotation / 180));
                             var yOffset = (offset * Math.sin(Math.PI * rotation / 180));
+                            
                             if (isDepth == 0) {
                                 if (f.depth == 1) {
                                     return "translate(" + (x + xOffset) + "," + (y + yOffset) + ")rotate(" + rotation + ")"
