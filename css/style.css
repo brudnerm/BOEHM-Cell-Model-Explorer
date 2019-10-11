@@ -15,21 +15,27 @@ svg:not(:root) {
 .labels-subtype {
     font-family: 'Roboto Condensed', sans-serif;
     fill: white;
-    font-size: 9px;
+    font-size: 10px;
+}
+
+.labels-cellLine {
+    font-family: 'Roboto Condensed', sans-serif;
+    fill: white;
+    font-size: 8px;
 }
 
 .labels-source {
     font-family: 'Roboto Condensed', sans-serif;
     fill: white;
-    font-size: 18px;
+    font-size: 12px;
 }
 
 .labels-lg {
     font-family: 'Roboto Condensed', sans-serif;
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .labels-extralg {
     font-family: 'Roboto', sans-serif;
-    font-size: 18px;
+    font-size: 14px;
 }
