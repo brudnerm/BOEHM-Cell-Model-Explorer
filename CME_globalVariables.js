@@ -91,6 +91,16 @@ function namePlusParaNumber (input) {
         else { return input.name + " (" + input.value + ")"; } }
 }
 
+    
+function getName(name) {
+    var setName = name;
+    if (setName != "root") { var setFilterName = name; }
+    else { var setName = ""; }
+    console.log("got name", setName)
+    return window.setName
+}
+
+
 //     DETERMINE OPACITY SETTINGS FOR SUBTYPES
 //    json.children.forEach(function (d) {
 //        d.opacity = 1;

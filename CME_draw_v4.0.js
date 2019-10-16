@@ -1,4 +1,3 @@
-var strokeWidth = 1
 
 function draw(loadedData) {
 
@@ -29,16 +28,18 @@ function draw(loadedData) {
             .style("stroke", function (d) { 
                 if(d.depth == 3 && d.info.subSource == "CCLF") { return "orange" }
                 else { return "white" } } )
-            .style("stroke-width", strokeWidth)
+            .style("stroke-width", 1)
         
         var dots = g.append("circle")
             .attr("r", 4).attr("cx", 0).attr("cy", 0)
-            .attr("transform", function(d) { return setLocation(d, 8) })
+            .attr("transform", function(d) { return setLocation(d, 10) })
             .style("fill", "none")
-            .style("stroke-width", strokeWidth)
+            .style("stroke-width", 1)
             .style("stroke", function (d) {
                 if (d.depth != 3) { return "none" }
-                else if (d.info.genomicTriad == "Test") { return "red"} })
+                else if (d.info.cancerType == "Pediatric") { return "red"} 
+                else if (d.info.cancerType == "Rare") { return "blue"} 
+            })
         
         var text = g.append("text")
             .text(function (d) { if (d.depth == 1 && d.dx > 0.01) { return namePlusParaNumber(d) } })
@@ -53,7 +54,7 @@ function draw(loadedData) {
         
     function mouseover(d) {
         d3.select(this)
-            .style("stroke-width", strokeWidth * 5)
+            .style("stroke-width", 5)
     }
     
     function mouseout(d) {
@@ -63,6 +64,7 @@ function draw(loadedData) {
     
     function click(d) {
         console.log("clicked", d)
+        getName(d.name)
         var isDepth = identifyDepth(d);
         var transTime = 1000
         text.transition().duration(transTime).attr("opacity", 0)
@@ -104,7 +106,12 @@ function draw(loadedData) {
                 if (e.x >= d.x && e.x < (d.x + d.dx)) {
                     var zoomDots = d3.select(this.parentNode).select("circle");
                         zoomDots.transition().duration(transTime)
-                            .attr("transform", function(f) { return setLocation(f, 8) })
+                            .attr("transform", function(f) { 
+                                if (isDepth == 0) { return setLocation(f, 10) }
+                                else if(isDepth == 1) { return setLocation(f, 7) }
+                                else if(isDepth == 2) { return setLocation(f, 4.5) }
+                                else if(isDepth == 3) { return setLocation(f, 4.5) }
+                                })
                             .attr("opacity", 1) 
 
                     var arcText = d3.select(this.parentNode).select("text");
@@ -164,4 +171,4 @@ function draw(loadedData) {
                 } }) 
     } 
 } 
-    
+

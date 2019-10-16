@@ -22,13 +22,15 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Roboto+Condensed&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.20/af-2.3.4/b-1.6.0/b-colvis-1.6.0/b-html5-1.6.0/r-2.2.3/sc-2.0.1/sl-1.3.1/datatables.min.css"/>
+ 
+
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.20/af-2.3.4/b-1.6.0/b-colvis-1.6.0/b-html5-1.6.0/r-2.2.3/sc-2.0.1/sl-1.3.1/datatables.min.js"></script>
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="lib/queue.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-    
+
     
 </head>
 
@@ -42,10 +44,32 @@
     <script src="CME_structureData_3key.js"></script>
     <script src="CME_globalVariables.js"></script>
     <script src="CME_dataLoaded_v2.3.js"></script>
-    <script src="CME_filter_v1.0.js"></script>
-<!--    <script src="CME_draw_v3.1.js"></script>-->
     <script src="CME_draw_v4.0.js"></script>
-
+    <script src="CME_table_v1.0.js"></script>
+    
+    <table id="table_id" class="display">
+    <thead>
+        <tr>
+            <th>Cell Line</th>
+            <th>Arxspan ID</th>
+            <th>Source</th>
+            <th>Primary Disease</th>
+            <th>Disease Subtype</th>
+            <th>Tumor Type</th>
+            <th>Cancer Type</th>
+            <th>Treatment History</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>Culture Type</th>
+            <th>Genomic Triad</th>
+            <th>WGS</th>
+            <th>WES</th>
+            <th>RNAseq</th>
+            <th>Proteomics</th>
+            <th>Methylation</th>
+        </tr>
+    </thead>
+    </table>
 
 </body>
 

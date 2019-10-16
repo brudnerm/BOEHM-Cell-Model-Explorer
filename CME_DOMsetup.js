@@ -15,9 +15,8 @@ if (screenWidth >= 1024) {
 } else if (screenWidth <= 500) {
 
 }
+
 var TempFilterInput;
-
-
 
 var margin = {
         t: 5,
