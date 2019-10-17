@@ -109,5 +109,6 @@ function buildHierarchy(csv) {
         }
     })
     return root;
+    console.log(root);
     identifyDepth(root)
 };

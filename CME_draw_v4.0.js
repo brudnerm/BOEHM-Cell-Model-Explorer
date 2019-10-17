@@ -37,8 +37,7 @@ function draw(loadedData) {
             .style("stroke-width", 1)
             .style("stroke", function (d) {
                 if (d.depth != 3) { return "none" }
-                else if (d.info.cancerType == "Pediatric") { return "red"} 
-                else if (d.info.cancerType == "Rare") { return "blue"} 
+                else if (d.info['cultureType'] == "3D") { return "red"} 
             })
         
         var text = g.append("text")
@@ -64,7 +63,11 @@ function draw(loadedData) {
     
     function click(d) {
         console.log("clicked", d)
-        getName(d.name)
+            
+        var table = $('#table_id').DataTable();
+        if (d.name != "root") { table.search(d.name).draw() }
+        else { table.search("").draw() }
+        
         var isDepth = identifyDepth(d);
         var transTime = 1000
         text.transition().duration(transTime).attr("opacity", 0)

@@ -99,33 +99,3 @@ function getName(name) {
     console.log("got name", setName)
     return window.setName
 }
-
-
-//     DETERMINE OPACITY SETTINGS FOR SUBTYPES
-//    json.children.forEach(function (d) {
-//        d.opacity = 1;
-//        var child = d.children;
-//        var subSize = [];
-//        child.forEach(function (e) {
-//            var sourceSize = d3.sum(e.children, function (f) {
-//                return f.size
-//            })
-//            subSize.push(sourceSize)
-//        })
-//        var extent = d3.extent(subSize, function (f) {
-//            return f
-//        })
-//        var opacityScale = d3.scale.pow().exponent(.25).range([1, .5]).domain(extent)
-//        child.forEach(function (e) {
-//            var opacity;
-//            var sourceSize = d3.sum(e.children, function (f) {
-//                return f.size
-//            })
-//            if (extent[0] != extent[1]) {
-//                opacity = opacityScale(sourceSize)
-//            } else {
-//                opacity = 1
-//            }
-//            e.opacity = opacity;
-//        })
-//    })
