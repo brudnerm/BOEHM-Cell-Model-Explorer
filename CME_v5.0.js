@@ -485,60 +485,24 @@ function highlightClick() {
 function updateOuterhighlight() {
 
     d3.selectAll("path")
-            .style("opacity", function (e) {
-            var isDepth = identifyDepth(e);
-                if (isDepth == 0) {
-                    if (e.depth == 0) {
-                        return 0
-                    } else if (e.depth == 1) {
-                        return 0.07
-                    } else if (e.depth == 2) {
+        .style("opacity", function (e) {
+//            var isDepth = identifyDepth(e);
+//            if (isDepth == 0) {
+                
+                if (e.depth == 0) {
+                    return 0
+                } else if (e.depth == 1) {
+                    return 0.1
+                } else if (e.depth == 2) {
+                    return 1
+                } else if (e.depth == 3) {
+                    if (e.info[highlightField] == highlightTarget) {
                         return 1
-                    } else if (e.depth == 3) {
-                        if (e.info[highlightField] == highlightTarget) {
-                            return 1
-                        } else {
-                            return 0
-                        }
-                    }
-                } else if (isDepth == 1) {
-                    if (e.depth == 1) {
-                        return .5
-                    } else if (e.depth == 2) {
-                        return 1
-                    } else if (e.depth == 3) {
-                        if (e.info[highlightField] == highlightTarget) {
-                            return 1
-                        } else {
-                            return .25
-                        }
-                    }
-                } else if (isDepth == 2) {
-                    if (e.depth == 1) {
+                    } else {
                         return 0
-                    } else if (e.depth == 2) {
-                        return 0.5
-                    } else if (e.depth == 3) {
-                        if (e.info[highlightField] == highlightTarget) {
-                            return 1
-                        } else {
-                            return 0.25
-                        }
-                    }
-                } else if (isDepth == 3) {
-                    if (e.depth == 1) {
-                        return 0
-                    } else if (e.depth == 2) {
-                        return 0.5
-                    } else if (e.depth == 3) {
-                        if (e.info[highlightField] == highlightTarget) {
-                            return 1
-                        } else {
-                            return 0.25
-                        }
                     }
                 }
-            })
+        })
         .style("fill", function (d) {
             if (d.depth == 0) {
                 return "white"
@@ -550,7 +514,7 @@ function updateOuterhighlight() {
                 if (d.info[highlightField] == highlightTarget) {
                     return "orange"
                 } else {
-                    return "LightSteelBlue"
+                    return "gainsboro"
                 }
             };
         })
@@ -573,13 +537,19 @@ function draw(loadedData) {
         .attr("d", arc)
         .on("click", click)
         .style("opacity", function (d) {
-            if (d.depth == 0) {
-                return 0
-            } else if (d.depth == 1) {
-                return 0.1
-            } else if (d.depth == 3 && d.info[highlightField] != highlightTarget) {
-                return 0
-            };
+                if (d.depth == 0) {
+                    return 0
+                } else if (d.depth == 1) {
+                    return 0.1
+                } else if (d.depth == 2) {
+                    return 1
+                } else if (d.depth == 3) {
+                    if (d.info[highlightField] == highlightTarget) {
+                        return 1
+                    } else {
+                        return 0
+                    }
+                }
         })
         .style("fill", function (d) {
             if (d.depth == 0) {
@@ -592,7 +562,7 @@ function draw(loadedData) {
                 if (d.info[highlightField] == highlightTarget) {
                     return "orange"
                 } else {
-                    return "LightSteelBlue"
+                    return "gainsboro"
                 }
             };
         })
@@ -689,7 +659,7 @@ function draw(loadedData) {
                     if (e.depth == 0) {
                         return 0
                     } else if (e.depth == 1) {
-                        return 0.07
+                        return 0.1
                     } else if (e.depth == 2) {
                         return 1
                     } else if (e.depth == 3) {
@@ -707,8 +677,6 @@ function draw(loadedData) {
                     } else if (e.depth == 3) {
                         if (e.info[highlightField] == highlightTarget) {
                             return 1
-                        } else {
-                            return .25
                         }
                     }
                 } else if (isDepth == 2) {
@@ -719,8 +687,6 @@ function draw(loadedData) {
                     } else if (e.depth == 3) {
                         if (e.info[highlightField] == highlightTarget) {
                             return 1
-                        } else {
-                            return 0.25
                         }
                     }
                 } else if (isDepth == 3) {
@@ -729,11 +695,7 @@ function draw(loadedData) {
                     } else if (e.depth == 2) {
                         return 0.5
                     } else if (e.depth == 3) {
-                        if (e.info[highlightField] == highlightTarget) {
-                            return 1
-                        } else {
-                            return 0.25
-                        }
+                        return 1
                     }
                 }
             })
