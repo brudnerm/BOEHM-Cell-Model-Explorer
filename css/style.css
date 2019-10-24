@@ -1,14 +1,180 @@
+header {
+    width: 100%;
+    background-color: midnightblue;
+    padding-top: 1px;
+    padding-bottom: 0px;
+    padding-left: 30px;
+}
+
+footer {
+    width: 100%;
+    background-color: midnightblue;
+}
+
+h1 {
+    color: White;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 64px;
+    padding-top: 0px;
+    padding-bottom: 15px;
+}
+
+h2 {
+    color: midnightblue;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 32px;
+}
+
+h3 {
+    color: #616161;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16px;
+    margin-bottom: 7px;
+    padding-left: 0px
+}
+
+.container_checkboxes {
+    display: block;
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 7px;
+    color: #616161;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 12px;
+}
+
+.container_checkboxes input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 2px;
+    left: 0px;
+    height: 12px;
+    width: 12px;
+    background-color: #eee;
+    border-radius: 4px
+}
+
+.container_checkboxes:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.container_checkboxes input:checked ~ .checkmark {
+    background-color: midnightblue;
+}
+
+
+.container_highlighter {
+    display: block;
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 7px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 12px;
+}
+
+.container_highlighter input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.highlightermark {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 12px;
+    width: 12px;
+    border: 0;
+    border-radius: 50px;
+    background-color: #eee;
+}
+
+.container_highlighter:hover input ~ .highlightermark {
+    background-color: #ccc;
+}
+
+.container_highlighter input:checked ~ .highlightermark {
+    background-color: orange;
+}
+
+.container_dot {
+    display: block;
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 7px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 12px;
+}
+
+.container_dot input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.dotmark {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 12px;
+    width: 12px;
+    border: 0;
+    border-radius: 50px;
+    background-color: #eee;
+}
+
+.container_dot:hover input ~ .dotmark {
+    background-color: #ccc;
+}
+
+.container_dot input:checked ~ .dotmark {
+    box-sizing: border-box;
+    background-color: white;
+    border: 2px solid red;
+}
+
+.column {
+    float: left;
+    width: 120px;
+}
+
+.columnSmall {
+    float: left;
+    width: 30px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 svg:not(:root) {
     overflow: visible;
 }
 
 .container {
-    width: 80%;
+    vertical-align: top;
+    float: left;
+    width: 70%;
     margin: auto;
 }
 
 #plot {
-    width: 80%;
+    vertical-align: top;
+    float: left;
+    width: 70%;
     height: 100vh;
 }
 
@@ -43,12 +209,13 @@ svg:not(:root) {
 
 table {
     font-family: 'Roboto Condensed', sans-serif;
-    font-size: 12px;
+    font-size: 9px;
     border-collapse: collapse;
     width: 100%;
 }
 
-td, th {
+td,
+th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
@@ -56,4 +223,21 @@ td, th {
 
 tr:nth-child(even) {
     background-color: #dddddd;
+}
+
+.dataTables_filter {
+    float: left !important;
+    font-size: 14px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+div.dt-buttons{
+    float: right !important;
+    font-size: 12px;
+    padding-right: 10px    
+}
+
+.dataTables_info {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 14px;
+    padding-bottom: 10px
 }

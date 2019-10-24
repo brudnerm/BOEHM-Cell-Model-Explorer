@@ -19,10 +19,10 @@ if (screenWidth >= 1024) {
 var TempFilterInput;
 
 var margin = {
-        t: 5,
-        l: 50,
-        b: 5,
-        r: 50
+        t: 0,
+        l: 0,
+        b: 0,
+        r: 0
     },
     width = d3.select("#plot").node().clientWidth - margin.l - margin.r,
     height = d3.select("#plot").node().clientHeight - margin.t - margin.b;
