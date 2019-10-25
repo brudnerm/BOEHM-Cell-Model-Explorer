@@ -206,6 +206,11 @@ svg:not(:root) {
     font-size: 14px;
 }
 
+.labels-back {
+    font-family: 'Roboto Condensed', sans-serif;
+    fill: lightslategray;
+    font-size: 10px;
+}
 
 table {
     font-family: 'Roboto Condensed', sans-serif;

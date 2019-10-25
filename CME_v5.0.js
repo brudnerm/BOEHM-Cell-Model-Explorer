@@ -1,22 +1,9 @@
-// https://codepen.io/brisor/pen/Gznyr
-//zoomable
-// https://observablehq.com/@d3/zoomable-sunburst
-// https://codepen.io/thecraftycoderpdx/pen/rJYNRv
+////////////////////////////////////////////////////////////////////////////////////
+//  Set up SVG in DOM
+////////////////////////////////////////////////////////////////////////////////////
 
 var screenHeight = window.innerHeight;
 var screenWidth = window.innerWidth;
-
-if (screenWidth >= 1024) {
-
-} else if (screenWidth <= 1024 && screenWidth > 768) {
-
-} else if (screenWidth <= 768 && screenWidth > 500) {
-
-} else if (screenWidth <= 500) {
-
-}
-
-var TempFilterInput;
 
 var margin = {
         t: 0,
@@ -37,6 +24,12 @@ var vis = d3.select("#plot")
 var radius = Math.min(width, height) / 2;
 // Total size of all segments; we set this later, after loading the data.
 var totalSize = 0;
+
+
+
+////////////////////////////////////////////////////////////////////////////////////
+//  Color Definitions
+////////////////////////////////////////////////////////////////////////////////////
 
 var colors = {
     "Lung Cancer": "#E74C3C",
@@ -71,8 +64,15 @@ var colors = {
     "Gallbladder Cancer": "#F7DC6F",
     "Non-Cancerous": "#CCD1D1",
     "Immortalized": "#CCD1D1",
-    "White": "white"
+    "White": "white",
+    "root": "white"
 };
+
+
+
+////////////////////////////////////////////////////////////////////////////////////
+//  Function to Make Hierarchy
+////////////////////////////////////////////////////////////////////////////////////
 
 function makeNest(data, key1, key2, key3) {
     var nest = d3.nest()
@@ -89,6 +89,12 @@ function makeNest(data, key1, key2, key3) {
     return nest
 }
 
+
+
+////////////////////////////////////////////////////////////////////////////////////
+//  Move To Front/Back
+////////////////////////////////////////////////////////////////////////////////////
+
 d3.selection.prototype.moveToFront = function () {
     return this.each(function () {
         this.parentNode.appendChild(this);
@@ -104,6 +110,12 @@ d3.selection.prototype.moveToBack = function () {
     });
 };
 
+
+
+////////////////////////////////////////////////////////////////////////////////////
+//  Sunburst Scales
+////////////////////////////////////////////////////////////////////////////////////
+
 var x = d3.scale.linear()
     .range([0, 2 * Math.PI]);
 
@@ -115,6 +127,12 @@ var partition = d3.layout.partition()
         return d.size;
         var size = d.size
     });
+
+
+
+////////////////////////////////////////////////////////////////////////////////////
+//  Sunburst Functions: Arc Definition
+////////////////////////////////////////////////////////////////////////////////////
 
 var arc = d3.svg.arc()
     .startAngle(function (d) {
@@ -148,6 +166,12 @@ var arc = d3.svg.arc()
     })
     .cornerRadius(4)
 
+
+
+////////////////////////////////////////////////////////////////////////////////////
+//  Sunburst Functions: Arc Transition Math
+////////////////////////////////////////////////////////////////////////////////////
+
 function arcTween(d) {
     var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
         yd = d3.interpolate(y.domain(), [d.y, 1]),
@@ -166,14 +190,10 @@ function arcTween(d) {
 }
 
 
-function identifyDepth(input) {
-    return input.depth
-}
 
-function drawNewPlot(sunburst_filter) {
-    return sunburst_filter
-    //    console.log("data", sunburst_filter)
-}
+////////////////////////////////////////////////////////////////////////////////////
+//  Functions for Radially Positioning Text and Dots
+////////////////////////////////////////////////////////////////////////////////////
 
 function computeTextRotation(d) {
     var ang = (x(d.x + d.dx / 2) - Math.PI / 2) / Math.PI * 180;
@@ -195,6 +215,12 @@ function setLocation(d, offsetValue) {
     var yOffset = y + (offset * Math.sin(Math.PI * rotation / 180));
     return "translate(" + xOffset + "," + yOffset + ")rotate(" + rotation + ")";
 }
+
+
+
+////////////////////////////////////////////////////////////////////////////////////
+//  Functions for Labels
+////////////////////////////////////////////////////////////////////////////////////
 
 function namePlusTextNumber(input) {
     if (input.value == 1) {
@@ -237,6 +263,12 @@ function getName(name) {
     return window.setName
 }
 
+
+
+////////////////////////////////////////////////////////////////////////////////////
+//  Get Data from Google Sheet
+////////////////////////////////////////////////////////////////////////////////////
+
 queue()
     .defer(d3.csv, "https://docs.google.com/spreadsheets/d/e/2PACX-1vR9k1hVV00IO1JMiPm2t4b6nt4Ro1831ytv6PsnDaVJW1JJyJoqn9DIR76zK3pUtsPRFlrsJJmAPQxY/pub?gid=0&single=true&output=csv", parse)
     //    .defer(d3.csv, "data/data_global_select.csv", parse) //Local data load
@@ -275,6 +307,12 @@ function parse(d) {
     }
 }
 
+
+
+////////////////////////////////////////////////////////////////////////////////////
+//  Load Data, Draw Sunburt, Draw Table
+////////////////////////////////////////////////////////////////////////////////////
+
 function dataLoaded(err, data) {
     var nest = makeNest(data, "primaryDisease", "Subtype", "cellLineName")
     var newData = [];
@@ -305,6 +343,11 @@ function dataLoaded(err, data) {
     makeTable(data)
 }
 
+
+
+////////////////////////////////////////////////////////////////////////////////////
+//  Hierarchy JSON Function
+////////////////////////////////////////////////////////////////////////////////////
 
 function buildHierarchy(csv) {
     var root = {
@@ -351,6 +394,12 @@ function buildHierarchy(csv) {
     console.log(root);
     identifyDepth(root)
 };
+
+
+
+////////////////////////////////////////////////////////////////////////////////////
+//  Make Table for Cell Lines
+////////////////////////////////////////////////////////////////////////////////////
 
 function makeTable(data) {
 
@@ -422,27 +471,11 @@ function makeTable(data) {
     });
 }
 
-//function getRadio() {
-//
-//    $(document).ready(function () {
-//        $('input[name=dotmarker]:radio').on('click', function (e) {
-//            var inputRadioClicked = $(e.currentTarget);
-//            var thisSelection = inputRadioClicked.attr('value');  
-////            var dotsField = getField(thisSelection);
-////                console.log("dotsField", dotsField)
-////            var dotsTarget = getTarget(thisSelection);
-////                console.log("dotsTarget", dotsTarget)
-////            console.log(thisSelection)
-//            return thisSelection;
-//        })
-//    })
-//}
-//getRadio();
 
-//const buttons = d3.selectAll('input');
-//buttons.on('change', function (d) {
-//    console.log('button changed to ' + this.value);
-//});
+
+////////////////////////////////////////////////////////////////////////////////////
+//  Dots
+////////////////////////////////////////////////////////////////////////////////////
 
 var dotsField = "cultureType";
 var dotsTarget = "3D";
@@ -468,6 +501,12 @@ function updateOuterDots() {
         })
 }
 
+
+
+////////////////////////////////////////////////////////////////////////////////////
+//  Highlighter
+////////////////////////////////////////////////////////////////////////////////////
+
 var highlightField = "subSource"
 var highlightTarget = "CCLF"
 
@@ -486,22 +525,19 @@ function updateOuterhighlight() {
 
     d3.selectAll("path")
         .style("opacity", function (e) {
-//            var isDepth = identifyDepth(e);
-//            if (isDepth == 0) {
-                
-                if (e.depth == 0) {
-                    return 0
-                } else if (e.depth == 1) {
-                    return 0.1
-                } else if (e.depth == 2) {
+            if (e.depth == 0) {
+                return 0
+            } else if (e.depth == 1) {
+                return 0.1
+            } else if (e.depth == 2) {
+                return 1
+            } else if (e.depth == 3) {
+                if (e.info[highlightField] == highlightTarget) {
                     return 1
-                } else if (e.depth == 3) {
-                    if (e.info[highlightField] == highlightTarget) {
-                        return 1
-                    } else {
-                        return 0
-                    }
+                } else {
+                    return 0
                 }
+            }
         })
         .style("fill", function (d) {
             if (d.depth == 0) {
@@ -520,6 +556,12 @@ function updateOuterhighlight() {
         })
 }
 
+
+
+////////////////////////////////////////////////////////////////////////////////////
+//  Draw Function
+////////////////////////////////////////////////////////////////////////////////////
+
 function draw(loadedData) {
 
     vis.append("svg:circle")
@@ -532,24 +574,30 @@ function draw(loadedData) {
         .on("mouseover", mouseover)
         .on("mouseout", mouseout)
 
+
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    //  Draw Sunburst Arc-Path
+    ////////////////////////////////////////////////////////////////////////////////////
+
     var path = g.append("path")
         //        .attr("class", ".outerhighlight")
         .attr("d", arc)
         .on("click", click)
         .style("opacity", function (d) {
-                if (d.depth == 0) {
-                    return 0
-                } else if (d.depth == 1) {
-                    return 0.1
-                } else if (d.depth == 2) {
+            if (d.depth == 0) {
+                return 0
+            } else if (d.depth == 1) {
+                return 0.1
+            } else if (d.depth == 2) {
+                return 1
+            } else if (d.depth == 3) {
+                if (d.info[highlightField] == highlightTarget) {
                     return 1
-                } else if (d.depth == 3) {
-                    if (d.info[highlightField] == highlightTarget) {
-                        return 1
-                    } else {
-                        return 0
-                    }
+                } else {
+                    return 0
                 }
+            }
         })
         .style("fill", function (d) {
             if (d.depth == 0) {
@@ -569,6 +617,12 @@ function draw(loadedData) {
         .style("stroke", "white")
         .style("stroke-width", 1)
 
+
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    //  Add Dots
+    ////////////////////////////////////////////////////////////////////////////////////
+
     var dots = g.append("circle")
         .attr("r", 4).attr("cx", 0).attr("cy", 0)
         .attr("transform", function (d) {
@@ -584,6 +638,12 @@ function draw(loadedData) {
                 return "red"
             }
         })
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    //  Add Labels
+    ////////////////////////////////////////////////////////////////////////////////////
 
     var text = g.append("text")
         .text(function (d) {
@@ -609,6 +669,30 @@ function draw(loadedData) {
             };
         })
 
+
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    //  Set up "Back" Text
+    ////////////////////////////////////////////////////////////////////////////////////
+
+    vis.append("text")
+        .attr("id", "go-back")
+        .html("Back")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("text-anchor", "middle")
+        .attr("alignment-baseline", "middle")
+        .attr("class", "labels-back")
+        .style("opacity", 0)
+
+    d3.select("#go-back").moveToFront()
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    //  Mouse over
+    ////////////////////////////////////////////////////////////////////////////////////
+
     function mouseover(d) {
         d3.select(this).select("path")
             .style("stroke-width",
@@ -631,7 +715,14 @@ function draw(loadedData) {
             .style("stroke", "white")
     }
 
+
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    //  Click
+    ////////////////////////////////////////////////////////////////////////////////////
+
     function click(d) {
+
         console.log("clicked", d)
 
         var table = $('#table_id').DataTable();
@@ -648,10 +739,37 @@ function draw(loadedData) {
                 .draw()
         }
 
-        var isDepth = identifyDepth(d);
+        var isDepth = d.depth;
+
+
+
+        ////////////////////////////////////////////////////////////////////////////////////
+        //  Make "Back" Text Appear/Disappear
+        ////////////////////////////////////////////////////////////////////////////////////
+
+        if (isDepth != 0) {
+            d3.select("#go-back").style("opacity", 1)
+            d3.select("#go-back").moveToFront()
+        } else {
+            d3.select("#go-back").style("opacity", 0)
+        }
+
+
+
+        ////////////////////////////////////////////////////////////////////////////////////
+        //  Labels and Dots Disappear During Transition
+        ////////////////////////////////////////////////////////////////////////////////////
+
         var transTime = 1000
         text.transition().duration(transTime).attr("opacity", 0)
         dots.transition().duration(transTime).attr("opacity", 0)
+
+
+
+        ////////////////////////////////////////////////////////////////////////////////////
+        //  Re-Draw Sunburst Arc-Path
+        ////////////////////////////////////////////////////////////////////////////////////
+
         path.transition().duration(transTime)
             .attrTween("d", arcTween(d))
             .style("opacity", function (e) {
@@ -670,7 +788,9 @@ function draw(loadedData) {
                         }
                     }
                 } else if (isDepth == 1) {
-                    if (e.depth == 1) {
+                    if (e.depth == 0) {
+                        return 0
+                    } else if (e.depth == 1) {
                         return .5
                     } else if (e.depth == 2) {
                         return 1
@@ -702,8 +822,15 @@ function draw(loadedData) {
             .style("stroke", "white")
             .each("end", function (e, i) {
                 if (e.x >= d.x && e.x < (d.x + d.dx)) {
-                    var zoomDots = d3.select(this.parentNode).select("circle");
-                    zoomDots.transition().duration(transTime)
+
+
+
+                    ////////////////////////////////////////////////////////////////////////////////////
+                    //  Re-draw Dots
+                    ////////////////////////////////////////////////////////////////////////////////////
+
+                    var clickDots = d3.select(this.parentNode).select("circle");
+                    clickDots.transition().duration(transTime)
                         .attr("transform", function (f) {
                             if (isDepth == 0) {
                                 return setLocation(f, 10)
@@ -716,6 +843,12 @@ function draw(loadedData) {
                             }
                         })
                         .attr("opacity", 1)
+
+
+
+                    ////////////////////////////////////////////////////////////////////////////////////
+                    //  Re-draw Text
+                    ////////////////////////////////////////////////////////////////////////////////////
 
                     var arcText = d3.select(this.parentNode).select("text");
                     arcText.transition().duration(transTime)
