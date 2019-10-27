@@ -41,24 +41,45 @@
     <header>
         <h1><span style="color:orange; font-size: 80px">CCLX</span> &nbsp Cancer Cell Line e<span style="color:orange">X</span>plorer</h1>
     </header>
-    <h2 style="margin-bottom: 5px; padding-left: 25px">Use the explorer to search the collection of cancer cell models</h2>
+    <h2 style="margin-bottom: 5px; padding-left: 25px">Use the explorer to search our collection of cancer cell models</h2>
     <div class="intro">
         <h5>
-            The Broad Institute’s Cancer Cell Line Factory (CCLF) initiative aims to generate and characterize immortalized cell models isolated from patients’ tumors and make them available to the scientific community. These models are added to the Cancer Cell Line Encyclopedia (CCLE) collection. <br><br>As the collection grows, there is an increasing need to understand the overall distribution of these cell models and how well they represent the diversity of cancer. Cell Model Explorer allows users to visualize and find cell models with specific attributes in the CCLE/CCLF collection.
-
+            <span style="font-size:18px;color:orange">
+                About </span><br>
+            The Broad Institute’s Cancer Cell Line Factory (CCLF) initiative aims to generate and characterize immortalized cell models isolated from patients’ tumors and make them available to the scientific community. These models are added to the Cancer Cell Line Encyclopedia (CCLE) collection. <br><br>
+            As the collection grows, there is an increasing need to understand the overall distribution of these cell models and how well they represent the diversity of cancer. Cancer Cell Line Explorer (CCLX) allows users to visualize and find cell models with specific attributes in the CCLE/CCLF collection. 
         </h5>
     </div>
 
-    <div class="intro" style="float:left">
-        <h5><span style="color:orange">Filter buttons </span> to narrow down the dataset to by Tumor type, Cancer type, Culture type, Source, or availability of genomic data. <br><br>
-            <span style="color:orange">Highlight buttons</span> indicate the distribution of those specific attributes within the collection.<br><br>
-            <span style="color:orange">The Search Bar</span> directly finds a specific cell model, lineage, or attribute. <br><br>
-            <span style="color:orange">The Data Table</span> shows information about selected cell lines and exports selected data to CSV</h5>
+    <div class="intro">
+
+        <h5>
+            <span style="font-size:18px;color:orange">
+                Filter </span><br>
+            Narrow down the dataset to by Tumor type, Cancer type, Culture type, Source, or availability of genomic data using the checkboxes or the search bar.
+            <br><br>
+            <span style="font-size:18px;color:orange">
+                Highlight</span><br>
+            Show the distribution of specific attributes within the collection. Highlight can be applied as an <span style="color:orange">orange outer leaf</span> or as an <span style="color:red">red open circle</span> so that multiple attributes can be highlighted simulataneously. Use the highligter to explore the CCLE and CCLF and learn more about the cell model collection.
+        </h5>
     </div>
-    <br><br><br><br><br><br><br><br><br><br><br>
+    
+        <div class="intro">
+
+        <h5>
+            <span style="font-size:18px;color:orange">
+                Visualize </span><br>
+            The sunburst visualization shows the distrubution of cell models by lineage. Click on a slice to filter a lineage and click the center to go back.
+            <br><br>
+            <span style="font-size:18px;color:orange">
+                Get Data</span><br>
+            The data table at the bottom of the page provides information about the selected cell lines. The table can export cell model information as a CSV. The table also provides links to cell model resource pages to get more information about a specific model or access genomic data. 
+        </h5>
+    </div>
+
 
     <div class="topnav">
-        <form class="searchBar" action="action_page.php">
+        <form class="searchBar" action="">
             <input type="text" placeholder="Search...">
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
@@ -197,7 +218,7 @@
 
     <div class=columnSmall>
         <h4><span style="">Highlight</span></h4>
-        
+
         <!--Tumor Type-->
         <h3> &nbsp;</h3>
         <label class="container_highlighter">&nbsp;
