@@ -1,3 +1,33 @@
+function makeNest(data, key1, key2, key3){
+    var nest = d3.nest()
+        .key(function (d) {
+            return d[key1]
+        })
+        .key(function (d) {
+            return d[key2]
+        })
+        .key(function (d) {
+            return d[key3]
+        })
+        .entries(data)
+    return nest   
+}
+
+d3.selection.prototype.moveToFront = function() {
+ return this.each(function(){
+   this.parentNode.appendChild(this);
+ });
+};
+
+d3.selection.prototype.moveToBack = function() {
+   return this.each(function() {
+       var firstChild = this.parentNode.firstChild;
+       if (firstChild) {
+           this.parentNode.insertBefore(this, firstChild);
+       }
+   });
+};
+
 var x = d3.scale.linear()
     .range([0, 2 * Math.PI]);
 
@@ -64,6 +94,7 @@ function computeTextRotation(d) {
 var setLocationCenter = "translate(0, 45)"
 
 function setLocation (d, offsetValue) {
+    
     var rotation = computeTextRotation(d);
             var x = arc.centroid(d)[0];
             var y = arc.centroid(d)[1];
@@ -75,8 +106,12 @@ function setLocation (d, offsetValue) {
 }
 
 function namePlusTextNumber (input) {
-    if (input.value == 1) { return input.value + " " + input.name + " cell model" }
-    else { return input.value + " " + input.name + " cell models"}
+    if (input.value == 1) { 
+        return input.value + " " + input.name + " cell model" 
+    }
+    else { 
+        return input.value + " " + input.name + " cell models"
+    }
 }
 
 function namePlusParaNumber (input) {
@@ -84,38 +119,28 @@ function namePlusParaNumber (input) {
     if (input.name.length > 13) {truncate = "..."}
     else {var truncate = ""}
     if (input.depth != 1) {
-        if (computeTextRotation(input) > 90) { return "(" + input.value + ") " + input.name.substring(0,13) + truncate; } 
-        else { return input.name.substring(0,13) + truncate + " (" + input.value + ")"; } }
+        if (computeTextRotation(input) > 90) { 
+            return "(" + input.value + ") " + input.name.substring(0,13) + truncate; 
+        } 
+        else { 
+            return input.name.substring(0,13) + truncate + " (" + input.value + ")"; 
+        } 
+    }
     else {
-        if (computeTextRotation(input) > 90) { return "(" + input.value + ") " + input.name; } 
-        else { return input.name + " (" + input.value + ")"; } }
+        if (computeTextRotation(input) > 90) { 
+            return "(" + input.value + ") " + input.name; 
+        } 
+        else { 
+            return input.name + " (" + input.value + ")"; 
+        } 
+    }
 }
 
-//     DETERMINE OPACITY SETTINGS FOR SUBTYPES
-//    json.children.forEach(function (d) {
-//        d.opacity = 1;
-//        var child = d.children;
-//        var subSize = [];
-//        child.forEach(function (e) {
-//            var sourceSize = d3.sum(e.children, function (f) {
-//                return f.size
-//            })
-//            subSize.push(sourceSize)
-//        })
-//        var extent = d3.extent(subSize, function (f) {
-//            return f
-//        })
-//        var opacityScale = d3.scale.pow().exponent(.25).range([1, .5]).domain(extent)
-//        child.forEach(function (e) {
-//            var opacity;
-//            var sourceSize = d3.sum(e.children, function (f) {
-//                return f.size
-//            })
-//            if (extent[0] != extent[1]) {
-//                opacity = opacityScale(sourceSize)
-//            } else {
-//                opacity = 1
-//            }
-//            e.opacity = opacity;
-//        })
-//    })
+    
+function getName(name) {
+    var setName = name;
+    if (setName != "root") { var setFilterName = name; }
+    else { var setName = ""; }
+    console.log("got name", setName)
+    return window.setName
+}
