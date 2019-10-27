@@ -23,6 +23,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Roboto+Condensed&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.20/af-2.3.4/b-1.6.0/b-colvis-1.6.0/b-html5-1.6.0/r-2.2.3/sc-2.0.1/sl-1.3.1/datatables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 
@@ -38,12 +39,35 @@
 
 <body>
     <header>
-        <h1><span style="color:orange">C</span>ancer <span style="color:orange">C</span>ell <span style="color:orange">L</span>ine e<span style="color:orange">X</span>plorer</h1>
+        <h1><span style="color:orange; font-size: 80px">CCLX</span> &nbsp Cancer Cell Line e<span style="color:orange">X</span>plorer</h1>
     </header>
+    <h2 style="margin-bottom: 5px; padding-left: 25px">Use the explorer to search the collection of cancer cell models</h2>
+    <div class="intro">
+        <h5>
+            The Broad Institute’s Cancer Cell Line Factory (CCLF) initiative aims to generate and characterize immortalized cell models isolated from patients’ tumors and make them available to the scientific community. These models are added to the Cancer Cell Line Encyclopedia (CCLE) collection. <br><br>As the collection grows, there is an increasing need to understand the overall distribution of these cell models and how well they represent the diversity of cancer. Cell Model Explorer allows users to visualize and find cell models with specific attributes in the CCLE/CCLF collection.
+
+        </h5>
+    </div>
+
+    <div class="intro" style="float:left">
+        <h5><span style="color:orange">Filter buttons </span> to narrow down the dataset to by Tumor type, Cancer type, Culture type, Source, or availability of genomic data. <br><br>
+            <span style="color:orange">Highlight buttons</span> indicate the distribution of those specific attributes within the collection.<br><br>
+            <span style="color:orange">The Search Bar</span> directly finds a specific cell model, lineage, or attribute. <br><br>
+            <span style="color:orange">The Data Table</span> shows information about selected cell lines and exports selected data to CSV</h5>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br>
+
+    <div class="topnav">
+        <form class="searchBar" action="action_page.php">
+            <input type="text" placeholder="Search...">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
 
     <div class="columnSmall"> &nbsp;</div>
-        
+
     <div class="column">
+        <h4>Filter</h4>
         <!--Tumor Type-->
         <h3> Tumor Type</h3>
         <label class="container_checkboxes">Metastatic
@@ -166,14 +190,14 @@
             <span class="checkmark"></span>
         </label>
         <label class="container_checkboxes">Select All
-            <input type="checkbox" checked="checked" name="deselect" >
+            <input type="checkbox" checked="checked" name="deselect">
             <span class="checkmark"></span>
         </label>
-
     </div>
 
     <div class=columnSmall>
-
+        <h4><span style="">Highlight</span></h4>
+        
         <!--Tumor Type-->
         <h3> &nbsp;</h3>
         <label class="container_highlighter">&nbsp;
@@ -191,7 +215,7 @@
         <!--Cancer Type-->
         <h3> &nbsp;</h3>
         <label class="container_highlighter">&nbsp;
-            <input type="radio" value="cancerType_Common"  name="highlighter" onclick="highlightClick()">
+            <input type="radio" value="cancerType_Common" name="highlighter" onclick="highlightClick()">
             <span class="highlightermark"></span>
         </label>
         <label class="container_highlighter">&nbsp;
@@ -298,158 +322,158 @@
     </div>
 
     <div class=columnSmall>
-            <!--Tumor Type-->
-            <h3> &nbsp;</h3>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="tumorType_Metastatic" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="tumorType_Primary" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="tumorType_Unknown" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <!--Cancer Type-->
-            <h3> &nbsp;</h3>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="cancerType_Common" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="cancerType_Rare" name="dotmarker" onclick="dotClick()" >
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="cancerType_Pediatric" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <!--Culture Type-->
-            <h3> &nbsp; </h3>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="cultureType_3D" name="dotmarker" onclick="dotClick()" checked>
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="cultureType_2D-Adherent" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="cultureType_2D-Suspension" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="cultureType_2D-Mixed" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="cultureType_Unknown" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <!--Source-->
-            <h3> &nbsp;</h3>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="subSource_CCLF" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="subSource_Vendor" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="subSource_Academic" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="subSource_Unknown" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <!--Genomics-->
-            <h3> &nbsp;</h3>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="WGS_yes" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="WES_yes" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="RNAseq_yes" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="proteomics_yes" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="methylation_yes" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="pairedGermline_yes" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="pairedTumor_yes" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="genomicTriad_yes" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <!--Gender-->
-            <h3> &nbsp;</h3>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="gender_Female" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="gender_Male" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="gender_Unknown" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
-            <br>
-            <label class="container_dot">&nbsp;
-                <input type="radio" value="deselect_all" name="dotmarker" onclick="dotClick()">
-                <span class="dotmark"></span>
-            </label>
+        <h4> &nbsp;</h4>
+        <!--Tumor Type-->
+        <h3> &nbsp;</h3>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="tumorType_Metastatic" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="tumorType_Primary" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="tumorType_Unknown" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <!--Cancer Type-->
+        <h3> &nbsp;</h3>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="cancerType_Common" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="cancerType_Rare" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="cancerType_Pediatric" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <!--Culture Type-->
+        <h3> &nbsp; </h3>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="cultureType_3D" name="dotmarker" onclick="dotClick()" checked>
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="cultureType_2D-Adherent" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="cultureType_2D-Suspension" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="cultureType_2D-Mixed" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="cultureType_Unknown" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <!--Source-->
+        <h3> &nbsp;</h3>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="subSource_CCLF" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="subSource_Vendor" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="subSource_Academic" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="subSource_Unknown" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <!--Genomics-->
+        <h3> &nbsp;</h3>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="WGS_yes" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="WES_yes" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="RNAseq_yes" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="proteomics_yes" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="methylation_yes" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="pairedGermline_yes" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="pairedTumor_yes" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="genomicTriad_yes" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <!--Gender-->
+        <h3> &nbsp;</h3>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="gender_Female" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="gender_Male" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="gender_Unknown" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
+        <br>
+        <label class="container_dot">&nbsp;
+            <input type="radio" value="deselect_all" name="dotmarker" onclick="dotClick()">
+            <span class="dotmark"></span>
+        </label>
     </div>
 
     <div class="plot" id="plot"></div>
     <script src="CME_v5.0.js"></script>
 
-    <table id="table_id" class="display">
-        <thead>
-            <tr>
-                <th>Cell Line</th>
-                <th>Arxspan ID</th>
-                <th>Source</th>
-                <th>Primary Disease</th>
-                <th>Disease Subtype</th>
-                <th>Tumor Type</th>
-                <th>Cancer Type</th>
-                <th>Treatment History</th>
-                <th>Gender</th>
-                <th>Age</th>
-                <th>Culture Type</th>
-                <th>Genomic Triad</th>
-                <th>WGS</th>
-                <th>WES</th>
-                <th>RNAseq</th>
-                <th>Proteomics</th>
-                <th>Methylation</th>
-            </tr>
-        </thead>
-    </table>
+    <div style="padding-left: 20px">
+        <table id="table_id" class="display">
+            <thead>
+                <tr>
+                    <th>Cell Line</th>
+                    <th>Arxspan ID</th>
+                    <th>Source</th>
+                    <th>Primary Disease</th>
+                    <th>Disease Subtype</th>
+                    <th>Tumor Type</th>
+                    <th>Cancer Type</th>
+                    <th>Treatment History</th>
+                    <th>Gender</th>
+                    <th>Age</th>
+                    <th>Culture Type</th>
+                    <th>Genomic Triad</th>
+                    <th>WGS</th>
+                    <th>WES</th>
+                    <th>RNAseq</th>
+                    <th>Proteomics</th>
+                    <th>Methylation</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <footer></footer>
 
-    <footer><br><br><br><br><br><br><br><br></footer>
-
-</body>
-
-</html>
+</body></html>

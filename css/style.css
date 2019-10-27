@@ -1,6 +1,6 @@
 header {
     width: 100%;
-    background-color: midnightblue;
+    background-color: #2e2e2e;
     padding-top: 1px;
     padding-bottom: 0px;
     padding-left: 30px;
@@ -8,29 +8,119 @@ header {
 
 footer {
     width: 100%;
-    background-color: midnightblue;
+    height: 75px;
+    background-color: #2e2e2e;
 }
 
 h1 {
     color: White;
     font-family: 'Roboto Condensed', sans-serif;
-    font-size: 64px;
-    padding-top: 0px;
-    padding-bottom: 15px;
+    font-size: 40px;
 }
 
 h2 {
-    color: midnightblue;
+    color: #2e2e2e;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 32px;
 }
 
 h3 {
+    color: #2e2e2e;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+h4 {
+    color: orange;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 18px;
+    margin-bottom: -10px;
+}
+
+h5 {
     color: #616161;
     font-family: 'Roboto Condensed', sans-serif;
-    font-size: 16px;
-    margin-bottom: 7px;
-    padding-left: 0px
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+div.intro {
+    float:left;
+    width: 355px;
+    padding-left: 25px;
+}
+
+.column {
+    float: left !important;
+    width: 10%;
+    margin-bottom: 50px
+}
+
+.columnSmall {
+    float: left  !important;
+    white-space: no-wrap;
+    width: 1.5%;
+
+}
+
+svg:not(:root) {
+    overflow: visible;    
+    vertical-align: top;
+    float: left;
+}
+
+.container {
+    vertical-align: top;
+    float: left;
+    width: 85%;
+    margin: auto;
+}
+
+#plot {
+    vertical-align: top;
+    float: left;
+    width: 85%;
+    height: 100vh;
+}
+
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.topnav {
+    overflow: hidden;
+    padding-left: 20px;
+
+}
+
+.topnav input[type=text] {
+    font-family: 'Roboto Condensed', sans-serif;
+    float: left;
+    padding: 6px;
+    font-size: 17px;
+}
+
+form.searchBar button {
+    border: none;
+    float: left;
+    width: 34px;
+    height: 39px;
+    padding: 0px;
+    background: white;
+    color: <button type="submit"><i class="fa fa-search"></i></button>;
+    font-size: 17px;
+    border-left: none;
+    /* Prevent double borders */
+    cursor: pointer;
+}
+
+form.searchBar button:hover {
+    background: orange;
+    color: white
 }
 
 .container_checkboxes {
@@ -41,6 +131,7 @@ h3 {
     color: #616161;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 12px;
+
 }
 
 .container_checkboxes input {
@@ -58,7 +149,7 @@ h3 {
     height: 12px;
     width: 12px;
     background-color: #eee;
-    border-radius: 4px
+    border-radius: 2px
 }
 
 .container_checkboxes:hover input ~ .checkmark {
@@ -66,7 +157,7 @@ h3 {
 }
 
 .container_checkboxes input:checked ~ .checkmark {
-    background-color: midnightblue;
+    background-color: royalblue;
 }
 
 
@@ -144,39 +235,6 @@ h3 {
     border: 2px solid red;
 }
 
-.column {
-    float: left;
-    width: 120px;
-}
-
-.columnSmall {
-    float: left;
-    width: 30px;
-}
-
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-svg:not(:root) {
-    overflow: visible;
-}
-
-.container {
-    vertical-align: top;
-    float: left;
-    width: 70%;
-    margin: auto;
-}
-
-#plot {
-    vertical-align: top;
-    float: left;
-    width: 80%;
-    height: 100vh;
-}
 
 .labels-subtype {
     font-family: 'Roboto Condensed', sans-serif;
@@ -237,12 +295,14 @@ tr:nth-child(even) {
     width: 200px
 }
 
-.dataTables_filter input { width: 150px }
+.dataTables_filter input {
+    width: 150px
+}
 
-div.dt-buttons{
+div.dt-buttons {
     float: right !important;
     font-size: 12px;
-    padding-right: 10px    
+    padding-right: 10px
 }
 
 .dataTables_info {
