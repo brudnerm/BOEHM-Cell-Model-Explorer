@@ -2,27 +2,33 @@
 //  Set up SVG in DOM
 ////////////////////////////////////////////////////////////////////////////////////
 
+
+//  Get screen height and width
 var screenHeight = window.innerHeight;
 var screenWidth = window.innerWidth;
 
+//  Set margin for Plot SVG
 var margin = {
         t: 0,
         l: 0,
         b: 0,
         r: 0
     },
-    width = d3.select("#plot").node().clientWidth - margin.l - margin.r,
-    height = d3.select("#plot").node().clientHeight - margin.t - margin.b;
+    width = d3.select("#plot").node().clientWidth - margin.l - margin.r, //  determine 'width'
+    height = d3.select("#plot").node().clientHeight - margin.t - margin.b; //  determine 'height'
 
+//  Create 'vis' variable for plot, selecting plot SVG element
 var vis = d3.select("#plot")
-    .append("svg")
-    .attr("width", width + margin.l + margin.r)
-    .attr("height", height + margin.t + margin.b)
-    .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    .append("svg") //  make 'vis' append SVG element
+    .attr("width", width + margin.l + margin.r) //  set 'vis' width + left & right margin
+    .attr("height", height + margin.t + margin.b) //  set 'vis' height + top & bottom margin
+    .append("g") // create 'g' element in 'vis' for the arcs to append to
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")"); //  move plot to center of SVG element
 
+//  Determine plot radius based on width and height
 var radius = Math.min(width, height) / 2;
-// Total size of all segments; we set this later, after loading the data.
+
+//  Total size of all segments; we set this later, after loading the data.
 var totalSize = 0;
 
 
@@ -74,19 +80,20 @@ var colors = {
 //  Function to Make Hierarchy
 ////////////////////////////////////////////////////////////////////////////////////
 
+// Make nest based on data. keys refer to order of leaves in sunburst
 function makeNest(data, key1, key2, key3) {
-    var nest = d3.nest()
-        .key(function (d) {
+    var nest = d3.nest() //  D3 function for nesting data into JSON
+        .key(function (d) { //  Primary element in hierarchy (Primary Disease)
             return d[key1]
         })
-        .key(function (d) {
+        .key(function (d) { //  Secondary element in hierarchy (Disease Subtype)
             return d[key2]
         })
-        .key(function (d) {
+        .key(function (d) { //  Tertiary element in hierarchy   (Cell line/highlight leaf)
             return d[key3]
         })
-        .entries(data)
-    return nest
+        .entries(data) //  Get data
+    return nest //  Create nest
 }
 
 
@@ -95,12 +102,14 @@ function makeNest(data, key1, key2, key3) {
 //  Move To Front/Back
 ////////////////////////////////////////////////////////////////////////////////////
 
+//  Set up D3 prototype function for Move-to-Front
 d3.selection.prototype.moveToFront = function () {
     return this.each(function () {
         this.parentNode.appendChild(this);
     });
 };
 
+//  Set up D3 prototype function for Move-to-Back
 d3.selection.prototype.moveToBack = function () {
     return this.each(function () {
         var firstChild = this.parentNode.firstChild;
@@ -116,16 +125,19 @@ d3.selection.prototype.moveToBack = function () {
 //  Sunburst Scales
 ////////////////////////////////////////////////////////////////////////////////////
 
+//  Create linear scale for X-axis (determines arc length, circumference around a circle)
 var x = d3.scale.linear()
     .range([0, 2 * Math.PI]);
 
+//  Create linear scale for X-axis (determines radius length, diameter of a circle)
 var y = d3.scale.linear()
     .range([0, radius * 1.25]);
 
+//  Creates variable for partitions that will become arcs that make up the sunburst viz
 var partition = d3.layout.partition()
     .value(function (d) {
         return d.size;
-        var size = d.size
+        var size = d.size //  Size will determine how big each arc is
     });
 
 
@@ -134,32 +146,35 @@ var partition = d3.layout.partition()
 //  Sunburst Functions: Arc Definition
 ////////////////////////////////////////////////////////////////////////////////////
 
+//  Define arcs that will make up sunburst
 var arc = d3.svg.arc()
-    .startAngle(function (d) {
+    .startAngle(function (d) { //  Based on X-axis scale
+        //  Start angle for arcs begins where previous arc ended
         return Math.max(0, Math.min(2 * Math.PI, x(d.x)));
     })
-    .endAngle(function (d) {
+    .endAngle(function (d) { //  Based on X-axis scale
+        //  End angle for arcs is starting point plus size
         return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx)));
     })
-    .innerRadius(function (d) {
-        //        return Math.max(0, y(d.y));
-        if (d.depth == 0) {
+    .innerRadius(function (d) { //  Based on Y-axis scale
+        if (d.depth != 3) {
+            // Starts at 0, or where previous depth radius ends
+            // Determine starting radius length for primary and secondary leaves
             return Math.max(0, y(d.y));
-        } else if (d.depth == 1) {
-            return Math.max(0, y(d.y));
-        } else if (d.depth == 2) {
-            return Math.max(0, y(d.y));
-        } else if (d.depth == 3) {
+        } else {
+            // Determine starting radius length for cell line outer leaf
             return Math.max(0, y(d.y) * .8);
         }
     })
-    .outerRadius(function (d) {
-        if (d.depth == 0) {
+    .outerRadius(function (d) { //  Based on Y-axis scale
+        // y is determined by depth level
+        // Set outer radius for root and primary leaf
+        if (d.depth <= 1) {
             return Math.max(0, y(d.y + d.dy));
-        } else if (d.depth == 1) {
-            return Math.max(0, y(d.y + d.dy));
+            // Set outer radius for secondary leaf
         } else if (d.depth == 2) {
             return Math.max(0, y(d.y + d.dy) * .8);
+            // Set outer radius for outer highlight leaf
         } else if (d.depth == 3) {
             return Math.max(0, y(d.y + d.dy) * .7);
         }
@@ -195,72 +210,66 @@ function arcTween(d) {
 //  Functions for Radially Positioning Text and Dots
 ////////////////////////////////////////////////////////////////////////////////////
 
+// Gets rotation angle for text in arcs around a circle
 function computeTextRotation(d) {
     var ang = (x(d.x + d.dx / 2) - Math.PI / 2) / Math.PI * 180;
     return (ang > 90) ? 180 + ang : ang;
 }
 
+// Offsets text below center 'back' button
 var setLocationCenter = "translate(0, 45)"
 
+// Gets location for the center of arcs and offsets based on radius/depth
 function setLocation(d, offsetValue) {
-
-    var rotation = computeTextRotation(d);
-    var x = arc.centroid(d)[0];
-    var y = arc.centroid(d)[1];
-    var offset = radius / offsetValue;
+    var rotation = computeTextRotation(d); //  Get rotation angle
+    var x = arc.centroid(d)[0]; //  Find x center of arc
+    var y = arc.centroid(d)[1]; //  Find y center of arc
+    var offset = radius / offsetValue; //  Determines offset value based on input
     if (rotation > 90) {
         offset = offset * -1
     }
-    var xOffset = x + (offset * Math.cos(Math.PI * rotation / 180));
-    var yOffset = y + (offset * Math.sin(Math.PI * rotation / 180));
+    var xOffset = x + (offset * Math.cos(Math.PI * rotation / 180)); //  calculate new x
+    var yOffset = y + (offset * Math.sin(Math.PI * rotation / 180)); //  calculate new y
+    //  Return D3 translate function
     return "translate(" + xOffset + "," + yOffset + ")rotate(" + rotation + ")";
 }
 
 
 
 ////////////////////////////////////////////////////////////////////////////////////
-//  Functions for Labels
+//  Functions for Labeling Arcs
 ////////////////////////////////////////////////////////////////////////////////////
 
+// Label as: "# thisName cell models"
 function namePlusTextNumber(input) {
-    if (input.value == 1) {
-        return input.value + " " + input.name + " cell model"
-    } else {
-        return input.value + " " + input.name + " cell models"
-    }
+    return input.value + " " + input.name + " cell models"
 }
-
+// Truncating label, label as: "thisName (#)" or "(#) thisName" based on arc position
 function namePlusParaNumber(input) {
+    // Truncate string if longer than 13 characters, replace with ellipsis (...)
     var truncate;
     if (input.name.length > 13) {
         truncate = "..."
     } else {
-        var truncate = ""
+        truncate = ""
     }
-    if (input.depth != 1) {
+    if (input.depth != 1) { //  Labels for Subtype and Cell Line leaves
         if (computeTextRotation(input) > 90) {
+            //  If arc is on left side of circle, put (#) first, then truncated name
             return "(" + input.value + ") " + input.name.substring(0, 13) + truncate;
         } else {
+            //  If arc is on right side of circle, put name first, then (#)
             return input.name.substring(0, 13) + truncate + " (" + input.value + ")";
         }
-    } else {
+    } else { //  Labels for Primary Disease, not truncated
         if (computeTextRotation(input) > 90) {
+            //  If arc is on left side of circle, put (#) first, then truncated name
             return "(" + input.value + ") " + input.name;
         } else {
+            //  If arc is on right side of circle, put name first, then (#)
             return input.name + " (" + input.value + ")";
         }
     }
-}
-
-function getName(name) {
-    var setName = name;
-    if (setName != "root") {
-        var setFilterName = name;
-    } else {
-        var setName = "";
-    }
-    console.log("got name", setName)
-    return window.setName
 }
 
 
@@ -308,39 +317,103 @@ function parse(d) {
 }
 
 
+////////////////////////////////////////////////////////////////////////////////////
+//  Checkbox Select
+////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//function filterData(data) {
+//    var filtData = data.filter(function (d) {
+//        checkedArray.forEach(function (e) {
+//            var filterField = e.split('_')[0]
+//            var filterTarget = e.split('_')[1]
+//            return d.filterField == filterTarget
+//        })
+//        //        return d.subSource == "CCLF"
+//    })
+//}
+
 
 ////////////////////////////////////////////////////////////////////////////////////
 //  Load Data, Draw Sunburt, Draw Table
 ////////////////////////////////////////////////////////////////////////////////////
 
 function dataLoaded(err, data) {
-    var nest = makeNest(data, "primaryDisease", "Subtype", "cellLineName")
-    var newData = [];
-    nest.forEach(function (d) {
-        d.initial_count = d.values.length;
-        var fullCount = [];
-        var Subtype = d.values;
-        Subtype.forEach(function (e) {
-            e.parent = d.key
-            e.count = e.values.length;
-            var cellLineName = e.values;
-            cellLineName.forEach(function (f) {
-                f.parent = e.key
-                f.count = f.values.length;
-                fullCount.push(f.values.length)
-                newData.push({
-                    sequence: d.key + ";;" + e.key + ";;" + f.key,
-                    size: f.values.length,
-                    values: f.values
+
+    var checkedArray = [];
+    var filtData = [];
+    $('input[type=checkbox]').click(function () {
+
+        var filterTerm = this.value
+        var filterField = filterTerm.split('_')[0]
+        var filterValue = filterTerm.split('_')[1]
+
+        if (this.checked) {
+            checkedArray.push(filterTerm)
+            console.log("added", checkedArray)
+
+            data.forEach(function (d) {
+                checkedArray.forEach(function (e) {
+                    if (d[filterField] == filterValue) {
+                        //                    console.log(d)
+                        filtData.push(d)
+                    }
                 })
             })
-        })
-        d.count = d3.sum(fullCount);
-    })
-    var sunData = buildHierarchy(newData)
 
-    draw(sunData)
-    makeTable(data)
+        } else {
+            for (var i = checkedArray.length - 1; i >= 0; i--) {
+                if (checkedArray[i] === filterTerm) {
+                    checkedArray.splice(i, 1);
+                }
+            }
+            console.log("removed", checkedArray)
+            data.forEach(function (d) {
+                checkedArray.forEach(function (e) {
+                    if (d[filterField] != filterValue) {
+                        //                    console.log(d)
+                        filtData.push(d)
+                    }
+                })
+            })
+        }
+
+
+
+
+
+        console.log(filtData)
+        //  Call makeNest function
+        var nest = makeNest(filtData, "primaryDisease", "Subtype", "cellLineName")
+        //  Create newData array
+        var newData = [];
+        //  Count
+        nest.forEach(function (d) {
+            d.initial_count = d.values.length;
+            var fullCount = [];
+            var Subtype = d.values;
+            Subtype.forEach(function (e) {
+                e.parent = d.key
+                e.count = e.values.length;
+                var cellLineName = e.values;
+                cellLineName.forEach(function (f) {
+                    f.parent = e.key
+                    f.count = f.values.length;
+                    fullCount.push(f.values.length)
+                    newData.push({
+                        sequence: d.key + ";;" + e.key + ";;" + f.key,
+                        size: f.values.length,
+                        values: f.values
+                    })
+                })
+            })
+            d.count = d3.sum(fullCount);
+        })
+        var sunData = buildHierarchy(newData)
+        draw(sunData)
+        makeTable(filtData)
+    })
 }
 
 
@@ -474,22 +547,27 @@ function makeTable(data) {
 
 
 ////////////////////////////////////////////////////////////////////////////////////
-//  Dots
+//  Dots Selector
 ////////////////////////////////////////////////////////////////////////////////////
 
+//  Default selection for dots on page load
 var dotsField = "cultureType";
 var dotsTarget = "3D";
 
+//  Called in HTML when dot radio button is clicked, detect button and determine field and target
 function dotClick() {
+    //  Get value of selected radio button
     var dotSelection = document.querySelector('input[name=dotmarker]:checked').value;
-    var field = dotSelection.split('_')[0]
-    var target = dotSelection.split('_')[1]
+    var field = dotSelection.split('_')[0] //  Get d.info field, eg. "Culture Type"
+    var target = dotSelection.split('_')[1] //  Get d.info target eg. "3D organoid"
+    // Set return values
     dotsField = field;
     dotsTarget = target;
+    // Call function to update viz
     updateOuterDots()
-
 }
 
+//  Update the dots based on dotClick() returns
 function updateOuterDots() {
     d3.selectAll(".outerDots")
         .style("stroke", function (d) {
@@ -504,25 +582,29 @@ function updateOuterDots() {
 
 
 ////////////////////////////////////////////////////////////////////////////////////
-//  Highlighter
+//  Highlighter Selector
 ////////////////////////////////////////////////////////////////////////////////////
 
+//  Default selection for dots on page load
 var highlightField = "subSource"
 var highlightTarget = "CCLF"
 
+//  Called in HTML when highlight radio button is clicked, detect button and determine field and target
 function highlightClick() {
+    //  Get value of selected radio button
     var highlightSelection = document.querySelector('input[name=highlighter]:checked').value;
-    var field = highlightSelection.split('_')[0]
-    var target = highlightSelection.split('_')[1]
+    var field = highlightSelection.split('_')[0] //  Get d.info field, eg. "subSource"
+    var target = highlightSelection.split('_')[1] //  Get d.info target eg. "CCLF"
+    // Set return values
     highlightField = field;
     highlightTarget = target;
-    console.log(highlightField, highlightTarget)
+    // Call function to update viz
     updateOuterhighlight()
 
 }
 
+// Update outer highlight/cell model leaf based on highlightClick() returns
 function updateOuterhighlight() {
-
     d3.selectAll("path")
         .style("opacity", function (e) {
             if (e.depth == 0) {
