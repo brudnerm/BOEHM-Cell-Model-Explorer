@@ -270,7 +270,7 @@ function getName(name) {
 ////////////////////////////////////////////////////////////////////////////////////
 
 queue()
-    .defer(d3.csv, "https://docs.google.com/spreadsheets/d/e/2PACX-1vR9k1hVV00IO1JMiPm2t4b6nt4Ro1831ytv6PsnDaVJW1JJyJoqn9DIR76zK3pUtsPRFlrsJJmAPQxY/pub?gid=0&single=true&output=csv", parse)
+    .defer(d3.csv, "data/test.csv", parse)
     //    .defer(d3.csv, "data/data_global_select.csv", parse) //Local data load
     .await(dataLoaded);
 
@@ -303,7 +303,8 @@ function parse(d) {
         race: d["Race"],
         treatmentHistory: d["Treatment History"],
         cultureType: d["Culture Type"],
-        cultureMedium: d["Culture Medium"]
+        cultureMedium: d["Culture Medium"],
+        level: d["Level"]
     }
 }
 
@@ -408,13 +409,10 @@ function makeTable(data) {
             data: data,
             columns: [
                 {
+                    data: null
+                },
+                {
                     data: 'cellLineName'
-                },
-                {
-                    data: 'arxspanID'
-                },
-                {
-                    data: 'subSource'
                 },
                 {
                     data: 'primaryDisease'
@@ -438,38 +436,81 @@ function makeTable(data) {
                     data: 'age'
                 },
                 {
-                    data: 'cultureType'
-                },
-                {
-                    data: 'genomicTriad'
-                },
-                {
-                    data: 'WGS'
-                },
-                {
-                    data: 'WES'
-                },
-                {
                     data: 'RNAseq'
                 },
                 {
-                    data: 'proteomics'
-                },
-                {
-                    data: 'methylation'
+                    data: 'level'
                 }
             ],
-            scrollY: 500,
+            scrollY: 300,
             deferRender: true,
             scroller: true,
             dom: 'Bfrtip',
             buttons: ['csv'],
             fixedHeader: true,
             responsive: true,
-            search: true
+            search: true,
+            bSortClasses: false,
+            
+            columnDefs: [
+                {
+                    classname: "select-checkbox",
+                    targets: 0,
+                    checkboxes: {
+                        selectRow: true
+                    }
+         },
+                {
+                    targets: 10,
+                    render: function (data) {
+                        // Progress Bar
+//                        return '<td data-order="' + data + '"><progress value="' + data + '" max="5"></progress></td>'
+                        
+                        // Custom Levels
+                        return '<img src="images/step' + data + '.png" style="height:10px;width:100px;" />'
+                    }
+         }
+      ],
+            'select': {
+                'style': 'multi'
+            },
+
+            'order': [[1, 'asc']]
+        });
+
+        // Handle form submission event 
+        $('#frm-example').on('submit', function (e) {
+            var form = this;
+            var rows_selected = table.column(0).checkboxes.selected();
+            // Iterate over all selected checkboxes
+            $.each(rows_selected, function (index, rowId) {
+                // Create a hidden element 
+                $(form).append(
+                    $('<input>')
+                    .attr('type', 'hidden')
+                    .attr('name', 'id[]')
+                    .val(rowId)
+                );
+            });
+
+            // Output form data to a console     
+            $('#example-console-rows').text(rows_selected.join(","));
+
+            // Output form data to a console     
+            $('#example-console-form').text($(form).serialize());
+
+            // Remove added elements
+            $('input[name="id\[\]"]', form).remove();
+
+            // Prevent actual form submission
+            e.preventDefault();
+
+            console.log(form)
         });
     });
+
 }
+
 
 
 
