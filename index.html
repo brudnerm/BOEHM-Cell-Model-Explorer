@@ -27,8 +27,7 @@
         <span style="font-weight: 600;font-size: 72px">CCL<span style="color:orange">K</span></span>&nbsp Cancer Cell Line <span style="color:orange; font-weight: 400">Kickstarter</span>
     </header>
 
-    <div class="wrapper">
-
+    <div class="wrapper-Introduction">
 
         <div class="textblock" style="
                                         grid-column-start: 1;
@@ -50,13 +49,14 @@
             <h5>The Broad Institute’s Cancer Cell Line Factory (CCLF) initiative aims to generate and characterize immortalized cell models isolated from patients’ tumors and make them available to the scientific community. These models are added to the Cancer Cell Line Encyclopedia (CCLE) collection. As the collection grows, there is an increasing need to understand the overall distribution of these cell models and how well they represent the diversity of cancer. Cancer Cell Line Explorer (CCLX) allows users to visualize and find cell models with specific attributes in the CCLE/CCLF collection.</h5>
         </div>
 
-        <div class="plot" id="plot" style="
+        <div class="textblock" id="image" style="
                                         grid-column-start: 2;
                                         grid-column-end: 5;
                                         grid-row-start: 2;
                                         grid-row-end: 2;
                                       ">
-            <script src="CME_v5.0.js"></script>
+            <img src="images/CME.svg">
+            <!--                        <script src="CME_v5.0.js"></script>-->
         </div>
 
         <div class="textblock" style="
@@ -86,12 +86,14 @@
             <h2>Donate Existing Cell Models</h2>
             The Broad Institute’s Cancer Cell Line Factory (CCLF) initiative aims to generate and characterize immortalized cell models isolated from patients’ tumors and make them available to the scientific community. These models are added to the Cancer Cell Line Encyclopedia (CCLE) collection.
         </div>
+
         <div class="tumorTable" style="
                                         grid-column-start: 1;
                                         grid-column-end: end;
                                         grid-row-start: 4;
                                         grid-row-end: 4;
                                       ">
+
             <form id="frm-example">
                 <table id="table_id" class="display">
                     <thead style="text-align: left;">
@@ -110,10 +112,10 @@
                         </tr>
                     </thead>
                 </table>
-                
+
             </form>
         </div>
-                <div class="textblock" style="
+        <div class="textblock" style="
                                         grid-column-start: 3;
                                         grid-column-end: 3;
                                         grid-row-start: 5;
@@ -121,7 +123,7 @@
                                         text-align: center;
                                       ">
             <h2>Submit your vote to the CCLF</h2><br>
-                <button class="button buttonSubmit">Kickstart</button>
+            <button class="button buttonSubmit">Kickstart</button>
 
         </div>
 
@@ -135,11 +137,15 @@
 
         </div>
 
+    </div>
+
+    <div class="wrapper-Introduction">
+
         <div class="textblock" style="
                                         grid-column-start: 2;
                                         grid-column-end: 5;
-                                        grid-row-start: 6;
-                                        grid-row-end: 6;
+                                        grid-row-start: 1;
+                                        grid-row-end: 1;
                                         padding-top: 100px;
                                       ">
             <h1>Explore the current Collection of Cell Models</h1>
@@ -150,8 +156,8 @@
         <div class="textblock" style="
                                         grid-column-start: 2;
                                         grid-column-end: 3;
-                                        grid-row-start: 7;
-                                        grid-row-end: 7;
+                                        grid-row-start: 2;
+                                        grid-row-end: 2;
                                       ">
             <h2>About</h2>
             The Broad Institute’s Cancer Cell Line Factory (CCLF) initiative aims to generate and characterize immortalized cell models isolated from patients’ tumors and make them available to the scientific community. These models are added to the Cancer Cell Line Encyclopedia (CCLE) collection. <br><br>
@@ -161,8 +167,8 @@
         <div class="textblock" style="
                                         grid-column-start: 3;
                                         grid-column-end: 4;
-                                        grid-row-start: 7;
-                                        grid-row-end: 7;
+                                        grid-row-start: 2;
+                                        grid-row-end: 2;
                                       ">
             <h2>Filter</h2>
             Narrow down the dataset to by Tumor type, Cancer type, Culture type, Source, or availability of genomic data using the checkboxes or the search bar.
@@ -174,8 +180,8 @@
         <div class="textblock" style="
                                         grid-column-start: 4;
                                         grid-column-end: 5;
-                                        grid-row-start: 7;
-                                        grid-row-end: 7;
+                                        grid-row-start: 2;
+                                        grid-row-end: 2;
                                       ">
             <h2>Visualize</h2>
             The sunburst visualization shows the distrubution of cell models by lineage. Click on a slice to filter a lineage and click the center to go back.
@@ -183,12 +189,15 @@
             <h2>Get Data</h2>
             The data table at the bottom of the page provides information about the selected cell lines. The table can export cell model information as a CSV. The table also provides links to cell model resource pages to get more information about a specific model or access genomic data.
         </div>
+        
+        </div>
+        <div class="wrapper-Explorer">
 
         <div class="topnav" style="
                                         grid-column-start: 1;
                                         grid-column-end: 2;
-                                        grid-row-start: 8;
-                                        grid-row-end: 8;
+                                        grid-row-start: 3;
+                                        grid-row-end: 3;
                                       ">
             <form class="searchBar" action="">
                 <input type="text" placeholder="Search...">
@@ -198,9 +207,9 @@
 
         <div class="column" style="
                                         grid-column-start: 1;
-                                        grid-column-end: 2;
-                                        grid-row-start: 9;
-                                        grid-row-end: 9;
+                                        grid-column-end: 1;
+                                        grid-row-start: 4;
+                                        grid-row-end: 4;
                                       ">
             <h2 style="
                                         grid-column-start: 1;
@@ -330,7 +339,7 @@
                 <span class="checkmark"></span>
             </label>
             <!--Source-->
-            <filterTextLabels style= "
+            <filterTextLabels style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
                                         grid-row-start: 16;
@@ -372,7 +381,7 @@
                 <span class="checkmark"></span>
             </label>
             <!--Genomics-->
-            <filterTextLabels style= "
+            <filterTextLabels style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
                                         grid-row-start: 21;
@@ -413,7 +422,7 @@
                 <input type="checkbox" checked="checked" name="genomic_proteomics">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes" style= "
+            <label class="container_checkboxes" style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
                                         grid-row-start: 26;
@@ -422,7 +431,7 @@
                 <input type="checkbox" checked="checked" name="genomic_methylation">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes"  style= "
+            <label class="container_checkboxes" style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
                                         grid-row-start: 27;
@@ -431,7 +440,7 @@
                 <input type="checkbox" checked="checked" name="genomic_pairedGermline">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes" style= "
+            <label class="container_checkboxes" style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
                                         grid-row-start: 28;
@@ -440,7 +449,7 @@
                 <input type="checkbox" checked="checked" name="genomic_pairedTumor">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes" style= "
+            <label class="container_checkboxes" style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
                                         grid-row-start: 29;
@@ -450,13 +459,13 @@
                 <span class="checkmark"></span>
             </label>
             <!--Gender-->
-            <filterTextLabels style= "
+            <filterTextLabels style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
                                         grid-row-start: 30;
                                         grid-row-end: 30;">
                 Gender </filterTextLabels>
-            <label class="container_checkboxes" style= "
+            <label class="container_checkboxes" style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
                                         grid-row-start: 31;
@@ -465,7 +474,7 @@
                 <input type="checkbox" checked="checked" name="gender_Female">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes" style= "
+            <label class="container_checkboxes" style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
                                         grid-row-start: 32;
@@ -474,7 +483,7 @@
                 <input type="checkbox" checked="checked" name="gender_Male">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes" style= "
+            <label class="container_checkboxes" style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
                                         grid-row-start: 33;
@@ -484,7 +493,7 @@
                 <span class="checkmark"></span>
             </label>
             <br>
-            <label class="container_checkboxes" style= "
+            <label class="container_checkboxes" style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
                                         grid-row-start: 34;
@@ -493,7 +502,7 @@
                 <input type="checkbox" name="deselect">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes" style= "
+            <label class="container_checkboxes" style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
                                         grid-row-start: 35;
@@ -505,7 +514,18 @@
 
 
         </div>
-        <!--
+        <!--column1-->
+
+        <div class="plot" id="plot" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: end;
+                                        grid-row-start: 4;
+                                        grid-row-end: 4;
+                                      ">
+            <script src="CME_v5.0.js"></script>
+        </div>
+    </div>
+    <!--
 
         <div class="box a">A</div>
         <div class="box b">B</div>
@@ -520,7 +540,7 @@
         <div class="box e">E</div>
         <div class="box f">F</div>
 -->
-    </div>
+
 
 
 
