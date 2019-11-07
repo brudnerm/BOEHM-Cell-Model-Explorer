@@ -442,12 +442,11 @@ function makeTable(data) {
                     data: 'age'
                 }
             ],
-            scrollY: 500,
+//            scrollY: 325,
             deferRender: true,
-            scroller: true,
-            dom: 'Bfrtip',
-            buttons: ['csv'],
-            fixedHeader: true,
+//            scroller: true,
+//            dom: 'Bfrtip',
+//            buttons: ['csv'],
             responsive: true,
             search: true,
             bSortClasses: false,

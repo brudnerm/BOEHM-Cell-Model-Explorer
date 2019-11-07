@@ -12,18 +12,53 @@ body {
 }
 
 header {
-    height:100px;
-/*    background-color: ;*/
+    height: 100px;
+    /*    background-color: ;*/
     text-align: center;
     font-weight: 200;
     font-size: 36px;
 }
 
 footer {
-    height: 100px;
-    background-color: #2e2e2e
+
 }
 
+
+
+/*                  */
+/*  Text Hierarcy   */
+/*                  */
+
+h1 {
+    color: orange;
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+}
+
+h2 {
+    color: orange;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+}
+
+h3 {
+    color: #2e2e2e;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 14px;
+}
+
+h4 {
+    color: #2e2e2e;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 12px;
+}
+
+h5 {
+    color: #616161;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+}
 
 
 
@@ -41,17 +76,12 @@ footer {
     background-color: #fff;
 }
 
-.textblock { 
-/*    padding-top:15px;*/
+.textblock {
+    /*    padding-top:15px;*/
 }
 
 .tumorTable {
     padding-top: 50px;
-}
-
-.column {
-    float: left !important;
-    width: 30%;
 }
 
 .columnSmall {
@@ -71,46 +101,58 @@ footer {
 
 
 
-
 /*                  */
 /*  Tumor Table     */
 /*                  */
 
 table {
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 12px;
-    border-collapse: collapse;
-
 }
 
+/*Row formatting*/
+tr {
+    background-color: white !important;
+}
+
+/*Row selected*/
+tr.selected {
+    background-color: #F8C471 !important;
+    font-weight: 500;
+    color: white;
+}
+
+/*Search bar*/
 .dataTables_filter {
     float: left !important;
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 14px;
     width: 450px;
 }
 
 .dataTables_filter input {
-    width: 400px;
+    width: 375px;
 }
 
+/*CSV button*/
 div.dt-buttons {
     float: right !important;
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 12px;
     padding-right: 10px
 }
 
+/*Footer Info formatting*/
 .dataTables_info {
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 14px;
-    padding-bottom: 10px;
 }
 
-tr.selected {
-    /*    color: white !important;*/
-    background-color: #F8C471 !important;
-}
+
+
+/*                  */
+/*  Vote button     */
+/*                  */
 
 .buttonSubmit {
     font-family: 'Roboto', sans-serif;
@@ -118,24 +160,19 @@ tr.selected {
     color: white;
     padding: 10px 15px;
     background-color: royalblue;
-    transition-duration: .8s;
+    transition-duration: .5s;
 }
 
 .buttonSubmit:hover {
-    color: black;
-    background-color: white
+    background-color: orange
 }
 
 
 
 
 /*                      */
-/*  Viz                 */
+/*  Plot Styles         */
 /*                      */
-
-svg:not(:root) {
-    height: 50vh;
-}
 
 #plot {
     vertical-align: top;
@@ -182,6 +219,29 @@ svg:not(:root) {
 
 }
 
+
+
+/*                      */
+/*  Filter Styles       */
+/*                      */
+
+.column {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 32% 32% 32%;
+    grid-gap: 1%;
+    margin-bottom: 500px
+}
+
+filterTextLabels{
+    font-family: Roboto;
+    font-weight: 500;
+    font-size: 16px;
+    color: #2e2e2e;
+    padding-top: 20px;
+}
+
+
 .topnav input[type=text] {
     font-family: 'Roboto Condensed', sans-serif;
     float: left;
@@ -195,8 +255,9 @@ form.searchBar button {
     width: 34px;
     height: 39px;
     padding: 0px;
-    background: white;
-    color: <button type="submit"><i class="fa fa-search"></i></button>;
+    background: royalblue;
+    color: white;
+    transition-duration: .5s;
     font-size: 17px;
     border-left: none;
     cursor: pointer;
@@ -204,7 +265,6 @@ form.searchBar button {
 
 form.searchBar button:hover {
     background: orange;
-    color: white
 }
 
 .container_checkboxes {
@@ -323,37 +383,4 @@ form.searchBar button:hover {
 
 
 
-/*                  */
-/*  Text Hierarcy   */
-/*                  */
 
-h1 {
-    color: orange;
-    font-family: 'Roboto', sans-serif;
-    font-size: 24px;
-}
-
-h2 {
-    color: orange;
-    font-family: 'Roboto', sans-serif;
-    font-size: 18px;
-}
-
-h3 {
-    color: #2e2e2e;
-    font-family: 'Roboto Condensed', sans-serif;
-    font-size: 14px;
-}
-
-h4 {
-    color: orange;
-    font-family: 'Roboto Condensed', sans-serif;
-    font-size: 18px;
-}
-
-h5 {
-    color: #616161;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-    font-size: 18px;
-}

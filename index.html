@@ -110,16 +110,26 @@
                         </tr>
                     </thead>
                 </table>
-                <h2>Submit your vote to the CCLF</h2><br>
-                <button class="button buttonSubmit">Kickstart!</button>
+                
             </form>
+        </div>
+                <div class="textblock" style="
+                                        grid-column-start: 3;
+                                        grid-column-end: 3;
+                                        grid-row-start: 5;
+                                        grid-row-end: 5;
+                                        text-align: center;
+                                      ">
+            <h2>Submit your vote to the CCLF</h2><br>
+                <button class="button buttonSubmit">Kickstart</button>
+
         </div>
 
         <div class="textblock" style="
                                         grid-column-start: 1;
                                         grid-column-end: end;
-                                        grid-row-start: 5;
-                                        grid-row-end: 5;
+                                        grid-row-start: 6;
+                                        grid-row-end: 6;
                                       ">
             <hr>
 
@@ -130,9 +140,10 @@
                                         grid-column-end: 5;
                                         grid-row-start: 6;
                                         grid-row-end: 6;
+                                        padding-top: 100px;
                                       ">
             <h1>Explore the current Collection of Cell Models</h1>
-                 
+
             <h5>The Broad Institute’s Cancer Cell Line Factory (CCLF) initiative aims to generate and characterize immortalized cell models isolated from patients’ tumors and make them available to the scientific community. These models are added to the Cancer Cell Line Encyclopedia (CCLE) collection. As the collection grows, there is an increasing need to understand the overall distribution of these cell models and how well they represent the diversity of cancer. Cancer Cell Line Explorer (CCLX) allows users to visualize and find cell models with specific attributes in the CCLE/CCLF collection.</h5>
         </div>
 
@@ -173,136 +184,321 @@
             The data table at the bottom of the page provides information about the selected cell lines. The table can export cell model information as a CSV. The table also provides links to cell model resource pages to get more information about a specific model or access genomic data.
         </div>
 
-        <div class="column" style="
+        <div class="topnav" style="
                                         grid-column-start: 1;
                                         grid-column-end: 2;
                                         grid-row-start: 8;
                                         grid-row-end: 8;
-                                        margin-bottom: 300px;
                                       ">
-            <h4>Filter</h4>
+            <form class="searchBar" action="">
+                <input type="text" placeholder="Search...">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+
+        <div class="column" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 2;
+                                        grid-row-start: 9;
+                                        grid-row-end: 9;
+                                      ">
+            <h2 style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 1;
+                                        grid-row-end: 1;
+                                        padding: 0px">
+                Filter</h2>
             <!--Tumor Type-->
-            <h3> Tumor Type</h3>
-            <label class="container_checkboxes">Metastatic
-                <input type="checkbox" checked="checked" name="tumorType_metastatic" value="1">
+            <filterTextLabels style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 2;
+                                        grid-row-end: 2;">
+                Tumor Type</filterTextLabels>
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 3;
+                                        grid-row-end: 3;">
+                Metastatic
+                <input type="checkbox" checked="checked" name="tumorType_metastatic">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">Primary
-                <input type="checkbox" checked="checked" name="tumorType_primary" value="1">
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 4;
+                                        grid-row-end: 4;">
+                Primary
+                <input type="checkbox" checked="checked" name="tumorType_primary">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">Unknown
-                <input type="checkbox" checked="checked" name="tumorType_unknown" value="1">
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 5;
+                                        grid-row-end: 5;">
+                Unknown
+                <input type="checkbox" checked="checked" name="tumorType_unknown">
                 <span class="checkmark"></span>
             </label>
             <!--Cancer Type-->
-            <h3> Cancer Type</h3>
-            <label class="container_checkboxes">Common
+            <filterTextLabels style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 6;
+                                        grid-row-end: 6;">
+                Cancer Type</filterTextLabels>
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 7;
+                                        grid-row-end: 7;">
+                Common
                 <input type="checkbox" checked="checked" name="cancerType_common">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">Rare
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 8;
+                                        grid-row-end: 8;">
+                Rare
                 <input type="checkbox" checked="checked" name="cancerType_rare">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">Pediatric
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 9;
+                                        grid-row-end: 9;">
+                Pediatric
                 <input type="checkbox" checked="checked" name="cancerType_pediatric">
                 <span class="checkmark"></span>
             </label>
             <!--Culture Type-->
-            <h3> Culture Type </h3>
-            <label class="container_checkboxes">3D organoid
+            <filterTextLabels style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 10;
+                                        grid-row-end: 10;">
+                Culture Type </filterTextLabels>
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 11;
+                                        grid-row-end: 11;">
+                3D organoid
                 <input type="checkbox" checked="checked" name="cultureType_3D">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">2D Adherent
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 12;
+                                        grid-row-end: 12;">
+                2D Adherent
                 <input type="checkbox" checked="checked" name="cultureType_2D-Adherent">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">2D Suspension
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 13;
+                                        grid-row-end: 13;">
+                2D Suspension
                 <input type="checkbox" checked="checked" name="cultureType_2D-Suspension">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">2D Mixed
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 14;
+                                        grid-row-end: 14;">
+                2D Mixed
                 <input type="checkbox" checked="checked" name="cultureType_2D-Mixed">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">Unknown
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 15;
+                                        grid-row-end: 15;">
+                Unknown
                 <input type="checkbox" checked="checked" name="cultureType_Unknown">
                 <span class="checkmark"></span>
             </label>
             <!--Source-->
-            <h3> Source</h3>
-            <label class="container_checkboxes">CCLF
+            <filterTextLabels style= "
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 16;
+                                        grid-row-end: 16;"> Source</filterTextLabels>
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 17;
+                                        grid-row-end: 17;">
+                CCLF
                 <input type="checkbox" checked="checked" name="subSource_CCLF">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">Vendor
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 18;
+                                        grid-row-end: 18;">
+                Vendor
                 <input type="checkbox" checked="checked" name="subSource_Vendor">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">Academic Lab
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 19;
+                                        grid-row-end: 19;">
+                Academic Lab
                 <input type="checkbox" checked="checked" name="subSource_Academic">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">Unknown
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 20;
+                                        grid-row-end: 20;">
+                Unknown
                 <input type="checkbox" checked="checked" name="source_unknown">
                 <span class="checkmark"></span>
             </label>
             <!--Genomics-->
-            <h3> Genomics</h3>
-            <label class="container_checkboxes">WGS
+            <filterTextLabels style= "
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 21;
+                                        grid-row-end: 21;"> Genomics</filterTextLabels>
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 22;
+                                        grid-row-end: 22;">
+                WGS
                 <input type="checkbox" checked="checked" name="genomic_wgs">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">WES
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 23;
+                                        grid-row-end: 23;">
+                WES
                 <input type="checkbox" checked="checked" name="genomic_wes">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">RNAseq
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 24;
+                                        grid-row-end: 24;">
+                RNAseq
                 <input type="checkbox" checked="checked" name="genomic_RNAseq">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">Proteomics
+            <label class="container_checkboxes" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 25;
+                                        grid-row-end: 25;">
+                Proteomics
                 <input type="checkbox" checked="checked" name="genomic_proteomics">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">Methylation
+            <label class="container_checkboxes" style= "
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 26;
+                                        grid-row-end: 26;">
+                Methylation
                 <input type="checkbox" checked="checked" name="genomic_methylation">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">Paired Germline
+            <label class="container_checkboxes"  style= "
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 27;
+                                        grid-row-end: 27;">
+                Paired Germline
                 <input type="checkbox" checked="checked" name="genomic_pairedGermline">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">Paired Tumor
+            <label class="container_checkboxes" style= "
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 28;
+                                        grid-row-end: 28;">
+                Paired Tumor
                 <input type="checkbox" checked="checked" name="genomic_pairedTumor">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">Genomic Triad
+            <label class="container_checkboxes" style= "
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 29;
+                                        grid-row-end: 29;">
+                Genomic Triad
                 <input type="checkbox" checked="checked" name="genomicTriad_yes">
                 <span class="checkmark"></span>
             </label>
             <!--Gender-->
-            <h3> Gender </h3>
-            <label class="container_checkboxes">Female
+            <filterTextLabels style= "
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 30;
+                                        grid-row-end: 30;">
+                Gender </filterTextLabels>
+            <label class="container_checkboxes" style= "
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 31;
+                                        grid-row-end: 31;">
+                Female
                 <input type="checkbox" checked="checked" name="gender_Female">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">Male
+            <label class="container_checkboxes" style= "
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 32;
+                                        grid-row-end: 32;">
+                Male
                 <input type="checkbox" checked="checked" name="gender_Male">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">Unknown
+            <label class="container_checkboxes" style= "
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 33;
+                                        grid-row-end: 33;">
+                Unknown
                 <input type="checkbox" checked="checked" name="gender_Unknown">
                 <span class="checkmark"></span>
             </label>
             <br>
-            <label class="container_checkboxes">Deselect All
+            <label class="container_checkboxes" style= "
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 34;
+                                        grid-row-end: 34;">
+                Deselect All
                 <input type="checkbox" name="deselect">
                 <span class="checkmark"></span>
             </label>
-            <label class="container_checkboxes">Select All
+            <label class="container_checkboxes" style= "
+                                        grid-column-start: 1;
+                                        grid-column-end: 1;
+                                        grid-row-start: 35;
+                                        grid-row-end: 35;">
+                Select All
                 <input type="checkbox" checked="checked" name="deselect">
                 <span class="checkmark"></span>
             </label>
