@@ -421,6 +421,12 @@ function makeTable(data) {
                     data: 'Subtype'
                 },
                 {
+                    data: 'level'
+                },
+                {
+                    data: 'RNAseq'
+                },
+                {
                     data: 'tumorType'
                 },
                 {
@@ -434,15 +440,9 @@ function makeTable(data) {
                 },
                 {
                     data: 'age'
-                },
-                {
-                    data: 'RNAseq'
-                },
-                {
-                    data: 'level'
                 }
             ],
-            scrollY: 300,
+            scrollY: 500,
             deferRender: true,
             scroller: true,
             dom: 'Bfrtip',
@@ -451,7 +451,7 @@ function makeTable(data) {
             responsive: true,
             search: true,
             bSortClasses: false,
-            
+
             columnDefs: [
                 {
                     classname: "select-checkbox",
@@ -461,11 +461,11 @@ function makeTable(data) {
                     }
          },
                 {
-                    targets: 10,
+                    targets: 4,
                     render: function (data) {
                         // Progress Bar
-//                        return '<td data-order="' + data + '"><progress value="' + data + '" max="5"></progress></td>'
-                        
+                        //                        return '<td data-order="' + data + '"><progress value="' + data + '" max="5"></progress></td>'
+
                         // Custom Levels
                         return '<img src="images/step' + data + '.png" style="height:10px;width:100px;" />'
                     }
@@ -518,7 +518,7 @@ function makeTable(data) {
 //  Dots
 ////////////////////////////////////////////////////////////////////////////////////
 
-var dotsField = "cultureType";
+var dotsField = "";
 var dotsTarget = "3D";
 
 function dotClick() {
@@ -655,7 +655,13 @@ function draw(loadedData) {
                 }
             };
         })
-        .style("stroke", "white")
+        .style("stroke", function (d) {
+            if (d.depth == 3) {
+                return "orange"
+            } else {
+                return "white"
+            }
+        })
         .style("stroke-width", 1)
 
 
@@ -860,7 +866,13 @@ function draw(loadedData) {
                     }
                 }
             })
-            .style("stroke", "white")
+            .style("stroke", function (d) {
+                if (d.depth == 3) {
+                    return "orange"
+                } else {
+                    return "white"
+                }
+            })
             .each("end", function (e, i) {
                 if (e.x >= d.x && e.x < (d.x + d.dx)) {
 
