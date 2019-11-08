@@ -341,7 +341,8 @@ function dataLoaded(err, data) {
     var sunData = buildHierarchy(newData)
 
     draw(sunData)
-    makeTable(data)
+//    makeTableCellLines(data)
+    makeTableTumor(data)
 }
 
 
@@ -399,13 +400,13 @@ function buildHierarchy(csv) {
 
 
 ////////////////////////////////////////////////////////////////////////////////////
-//  Make Table for Cell Lines
+//  Make Table for Tumor
 ////////////////////////////////////////////////////////////////////////////////////
 
-function makeTable(data) {
+function makeTableTumor(data) {
 
     $(document).ready(function () {
-        $('#table_id').DataTable({
+        $('#table_tumor').DataTable({
             data: data,
             columns: [
                 {
@@ -442,15 +443,14 @@ function makeTable(data) {
                     data: 'age'
                 }
             ],
-//            scrollY: 325,
+            //            scrollY: 325,
             deferRender: true,
-//            scroller: true,
-//            dom: 'Bfrtip',
-//            buttons: ['csv'],
+            //            scroller: true,
+            //            dom: 'Bfrtip',
+            //            buttons: ['csv'],
             responsive: true,
             search: true,
             bSortClasses: false,
-
             columnDefs: [
                 {
                     classname: "select-checkbox",
@@ -475,6 +475,10 @@ function makeTable(data) {
             },
 
             'order': [[1, 'asc']]
+        });
+
+        $("#searchTumors").keyup(function () {
+            dataTable.fnFilter(this.value);
         });
 
         // Handle form submission event 
@@ -517,7 +521,7 @@ function makeTable(data) {
 //  Dots
 ////////////////////////////////////////////////////////////////////////////////////
 
-var dotsField = "";
+var dotsField = "cultureType";
 var dotsTarget = "3D";
 
 function dotClick() {

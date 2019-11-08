@@ -108,12 +108,51 @@ h5 {
 
 
 
+
+/*                  */
+/*  Search Bar      */
+/*                  */
+
+.topnav {
+    margin-top: 50px;
+    text-align: center;
+    
+
+}
+
+.topnav input[type=text] {
+    font-family: 'Roboto', sans-serif;    
+    padding: 5px;
+    font-size: 24px;
+    width: 75%;
+}
+
+form.searchBar button {
+    border: none;
+    width: 45px;
+    height: 45px;
+/*    padding-top: 20px;*/
+    background: royalblue;
+    color: white;
+    transition-duration: .5s;
+    font-size: 24px;
+    border-left: none;
+    cursor: pointer;
+    vertical-align: center;
+}
+
+form.searchBar button:hover {
+    background: orange;
+}
+
+
+
 /*                  */
 /*  Tumor Table     */
 /*                  */
 
 .tumorTable {
-    padding-top: 50px;
+
 }
 
 table {
@@ -135,15 +174,20 @@ tr.selected {
 
 /*Search bar*/
 .dataTables_filter {
+    display: none;
+/*
     float: left !important;
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     width: 450px;
+*/
 }
 
+/*
 .dataTables_filter input {
     width: 375px;
 }
+*/
 
 /*CSV button*/
 div.dt-buttons {
@@ -224,11 +268,7 @@ div.dt-buttons {
     font-size: 10px;
 }
 
-.topnav {
-    width: 250px;
-    overflow: hidden;
 
-}
 
 
 
@@ -239,7 +279,7 @@ div.dt-buttons {
 .column {
     display: grid;
     justify-content: center;
-    grid-template-columns: 32% 32% 32%;
+    grid-template-columns: 50% 10% 10%;
     grid-gap: 1%;
     margin-bottom: 500px
 }
@@ -250,32 +290,6 @@ filterTextLabels{
     font-size: 16px;
     color: #2e2e2e;
     padding-top: 20px;
-}
-
-
-.topnav input[type=text] {
-    font-family: 'Roboto Condensed', sans-serif;
-    float: left;
-    padding: 6px;
-    font-size: 17px;
-}
-
-form.searchBar button {
-    border: none;
-    float: left;
-    width: 34px;
-    height: 39px;
-    padding: 0px;
-    background: royalblue;
-    color: white;
-    transition-duration: .5s;
-    font-size: 17px;
-    border-left: none;
-    cursor: pointer;
-}
-
-form.searchBar button:hover {
-    background: orange;
 }
 
 .container_checkboxes {
