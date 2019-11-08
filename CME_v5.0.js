@@ -341,7 +341,7 @@ function dataLoaded(err, data) {
     var sunData = buildHierarchy(newData)
 
     draw(sunData)
-//    makeTableCellLines(data)
+    makeTableCellLines(data)
     makeTableTumor(data)
 }
 
@@ -472,9 +472,7 @@ function makeTableTumor(data) {
       ],
             'select': {
                 'style': 'multi'
-            },
-
-            'order': [[1, 'asc']]
+            }
         });
 
         $("#searchTumors").keyup(function () {
@@ -516,7 +514,93 @@ function makeTableTumor(data) {
 
 
 
+////////////////////////////////////////////////////////////////////////////////////
+//  Make Table for Cell Lines
+////////////////////////////////////////////////////////////////////////////////////
 
+function makeTableCellLines(data) {
+
+    $(document).ready(function () {
+        $('#table_cellLines').DataTable({
+            data: data,
+            columns: [
+                {
+                    data: null
+                },
+                {
+                    data: 'cellLineName'
+                },
+//                {
+//                    data: 'arxspanID'
+//                },
+                {
+                    data: 'subSource'
+                },
+                {
+                    data: 'primaryDisease'
+                },
+                {
+                    data: 'Subtype'
+                },
+                {
+                    data: 'tumorType'
+                },
+                {
+                    data: 'cancerType'
+                },
+                {
+                    data: 'treatmentHistory'
+                },
+                {
+                    data: 'gender'
+                },
+                {
+                    data: 'age'
+                },
+                {
+                    data: 'cultureType'
+                },
+                {
+                    data: 'genomicTriad'
+                },
+                {
+                    data: 'WGS'
+                },
+                {
+                    data: 'WES'
+                },
+                {
+                    data: 'RNAseq'
+                }
+//                ,
+//                {
+//                    data: 'proteomics'
+//                },
+//                {
+//                    data: 'methylation'
+//                }
+            ],
+            deferRender: true,
+            //            dom: 'Bftip',
+            dom: 'B<"clear">lfrtip',
+            buttons: ['csv'],
+            responsive: true,
+            search: true,
+            bSortClasses: false,
+            columnDefs: [
+                {
+                    classname: "select-checkbox",
+                    targets: 0,
+                    checkboxes: {
+                        selectRow: true
+                    }
+         }],
+            'select': {
+                'style': 'multi'
+            }
+        });
+    });
+}
 ////////////////////////////////////////////////////////////////////////////////////
 //  Dots
 ////////////////////////////////////////////////////////////////////////////////////

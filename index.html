@@ -24,7 +24,7 @@
 
 <body>
     <header>
-        <span style="font-weight: 600;font-size: 72px">CCL<span style="color:orange">K</span></span>&nbsp Cancer Cell Line <span style="color:orange; font-weight: 400">Kickstarter</span>
+        <span style="font-weight: 600;font-size: 72px">CCL<span style="color:orange">X</span></span>&nbsp Cancer Cell Line <span style="color:orange; font-weight: 400">Explorer</span>
     </header>
 
     <div class="wrapper-Introduction">
@@ -95,7 +95,7 @@
                                         grid-column-end: 1;
                                         grid-row-start: 1;
                                         grid-row-end: 1;
-                                      ">
+                                        ">
             <!--    DRAW FILTER CHECKBOXES   -->
 
             <h2 style="
@@ -103,7 +103,7 @@
                                         grid-column-end: 1;
                                         grid-row-start: 1;
                                         grid-row-end: 1;
-                                        padding: 0px">
+                                        ">
                 Filter</h2>
             <!--Tumor Type-->
             <filterTextLabels style="
@@ -842,29 +842,95 @@
     </div>
 
     <div class="wrapper-Introduction">
-        
-        
+        <div class="topnav" style="
+                                        grid-column-start: 2;
+                                        grid-column-end: 6;
+                                        grid-row-start: 1;
+                                        grid-row-end: 1;
+                                        margin-top: 150px;
+                                        text-align: center;
+                                      ">
+            <form class="searchBar" id="searchTumors" action="">
+                <input type="text" placeholder="Search our cell model collection...">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+        <div class="cellLineTable" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: end;
+                                        grid-row-start: 2;
+                                        grid-row-end: 2;
+                                      ">
+
+            <form id="frm-example">
+                <table id="table_cellLines" class="display">
+                    <thead style="text-align: left;">
+                        <tr>
+                            <th>All</th>
+                            <th>Cell Line Name</th>
+                            <!--                            <th>Arxspan ID</th>-->
+                            <th>Source</th>
+                            <th>Primary Disease</th>
+                            <th>Disease Subtype</th>
+                            <th>Tumor Type</th>
+                            <th>Cancer Type</th>
+                            <th>Treatment History</th>
+                            <th>Gender</th>
+                            <th>Age</th>
+                            <th>Culture Type</th>
+                            <th>Genomic Triad</th>
+                            <th>WGS</th>
+                            <th>WES</th>
+                            <th>RNAseq</th>
+                            <!--
+                            <th>Proteomics</th>
+                            <th>Methylation</th>
+-->
+                        </tr>
+                    </thead>
+                </table>
+
+            </form>
+        </div>
+    </div>
+    
+    <div class="wrapper-Introduction">
+        <div class="textblock" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 6;
+                                        grid-row-start: 1;
+                                        grid-row-end: 1;
+                                        margin-top: 100px;
+                                        margin-bottom: 50px;
+                                      ">
+<!--            <hr>-->
+        </div>
+    </div>
+
+    <header><span style="font-weight: 600;font-size: 72px">CCL<span style="color:orange">X</span></span>&nbsp Cancer Cell Line <span style="color:orange; font-weight: 400">Kickstarter</span></header>
+
+
+
+
+    <div class="wrapper-Introduction">
+
         <div class="textblock" style="
                                         grid-column-start: 2;
                                         grid-column-end: 5;
                                         grid-row-start: 1;
                                         grid-row-end: 1;
+                                        
                                       ">
             <hr>
         </div>
-    </div>
-
-
-    <div class="wrapper-Introduction">
-
-
 
         <div class="textblock" style="
                                         
                                         grid-column-start: 2;
                                         grid-column-end: 5;
                                         grid-row-start: 1;
-                                        grid-row-end: 1;">
+                                        grid-row-end: 1;
+                                        padding-top: 25px;">
             <h1>Help Us Expand Our Collection of Cancer Cell Models</h1>
             <h5>The Broad Institute’s Cancer Cell Line Factory (CCLF) initiative aims to generate and characterize immortalized cell models isolated from patients’ tumors and make them available to the scientific community. These models are added to the Cancer Cell Line Encyclopedia (CCLE) collection. As the collection grows, there is an increasing need to understand the overall distribution of these cell models and how well they represent the diversity of cancer. Cancer Cell Line Explorer (CCLX) allows users to visualize and find cell models with specific attributes in the CCLE/CCLF collection.</h5>
         </div>

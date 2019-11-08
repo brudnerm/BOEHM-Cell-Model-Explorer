@@ -124,7 +124,7 @@ h5 {
     font-family: 'Roboto', sans-serif;    
     padding: 5px;
     font-size: 24px;
-    width: 75%;
+    width: 800px;
 }
 
 form.searchBar button {
@@ -151,9 +151,7 @@ form.searchBar button:hover {
 /*  Tumor Table     */
 /*                  */
 
-.tumorTable {
 
-}
 
 table {
     font-family: 'Roboto', sans-serif;
@@ -230,7 +228,7 @@ div.dt-buttons {
 /*                      */
 
 #plot {
-    vertical-align: bottom;
+    vertical-align: middle;
     height: 100vh;
 }
 
@@ -281,7 +279,6 @@ div.dt-buttons {
     justify-content: center;
     grid-template-columns: 50% 10% 10%;
     grid-gap: 1%;
-    margin-bottom: 500px
 }
 
 filterTextLabels{
