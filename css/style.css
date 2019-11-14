@@ -312,6 +312,11 @@ div.dt-buttons {
     height: 100vh;
 }
 
+#plot_ks {
+    vertical-align: middle;
+    height: 1px;
+}
+
 .labels-subtype {
     font-family: 'Roboto Condensed', sans-serif;
     fill: white;
