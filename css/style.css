@@ -7,7 +7,7 @@ body {
     font-family: 'Roboto';
     font-size: 14px;
     font-weight: 300;
-    color: #616161;
+    color: #414141;
     background-color: #fff;
 }
 
@@ -118,10 +118,10 @@ h5 {
     position: sticky;
     top: 0;
     width: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: #fff;
+    background-color: inherit;
     z-index: 1;
+    padding-top: 1px;
+    padding-bottom: 1px;
     
 }
 
@@ -129,8 +129,8 @@ h5 {
 /*    display: inline-table;*/
     list-style-type: none;
     overflow: hidden;
-    font-size: 12px;
-    font-weight: 300;
+    font-size: 14px;
+    font-weight: 400;
 /*    padding: 10px;*/
 
 }
@@ -141,8 +141,8 @@ h5 {
 }
 
 .wrapper-menu a {
-    color: #2e2e2e;
-    padding: 0px 20px;
+    color: #616161;
+    padding: 0px 50px;
     text-decoration: none;
 }
 
