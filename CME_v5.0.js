@@ -342,7 +342,7 @@ function dataLoaded(err, data) {
 
     draw(sunData)
     makeTableCellLines(data)
-    makeTableTumor(data)
+    makeTableTumors(data)
 }
 
 
@@ -403,10 +403,10 @@ function buildHierarchy(csv) {
 //  Make Table for Tumor
 ////////////////////////////////////////////////////////////////////////////////////
 
-function makeTableTumor(data) {
+function makeTableTumors(data) {
 
     $(document).ready(function () {
-        $('#table_tumor').DataTable({
+        $('#table_tumors').DataTable({
             data: data,
             columns: [
                 {
@@ -475,10 +475,6 @@ function makeTableTumor(data) {
             }
         });
 
-        $("#searchTumors").keyup(function () {
-            dataTable.fnFilter(this.value);
-        });
-
         // Handle form submission event 
         $('#frm-example').on('submit', function (e) {
             var form = this;
@@ -508,8 +504,14 @@ function makeTableTumor(data) {
 
             console.log(form)
         });
-    });
 
+
+        // Use Search Bar '#searchCellLines' to Filter Table
+        var table_tumors = $('#table_tumors').DataTable();
+        $('#searchTumors').keyup(function () {
+            table_tumors.search($(this).val()).draw();
+        });
+    });
 }
 
 
@@ -599,7 +601,13 @@ function makeTableCellLines(data) {
                 'style': 'multi'
             }
         });
-    });
+
+        // Use Search Bar '#searchCellLines' to Filter Table
+        var table_cellLines = $('#table_cellLines').DataTable();
+        $('#searchCellLines').keyup(function () {
+            table_cellLines.search($(this).val()).draw();
+        });
+    })
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //  Dots
@@ -855,11 +863,13 @@ function draw(loadedData) {
     //  Click
     ////////////////////////////////////////////////////////////////////////////////////
 
+
+
     function click(d) {
 
         console.log("clicked", d)
 
-        var table = $('#table_id').DataTable();
+        var table = $('#table_cellLines').DataTable();
         if (d.name != "root") {
             if (d.parent.name != "root") {
                 table.search(d.parent.name + " \"  " + d.name + "  \"")
