@@ -14,7 +14,7 @@ body {
 header {
     width: 100%;
     text-align: center;
-/*    height: 250px;*/
+    /*    height: 250px;*/
     background-color: inherit;
     font-weight: 600;
     font-size: 72px;
@@ -47,12 +47,14 @@ h1 {
     color: orange;
     font-family: 'Roboto', sans-serif;
     font-size: 24px;
+    font-weight: 300;
 }
 
 h2 {
     color: orange;
     font-family: 'Roboto', sans-serif;
     font-size: 18px;
+    font-weight: 400;
 }
 
 h3 {
@@ -79,6 +81,7 @@ h5 {
 /*                  */
 /*  Grid Setup      */
 /*                  */
+
 .wrapper-title {
     height: 100px;
     background-color: inherit;
@@ -109,6 +112,39 @@ h5 {
 
 
 
+
+/*                  */
+/*  Landing Page    */
+/*                  */
+
+.wrapper-landing {
+    margin: 50px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    grid-template-columns: 10% 15% 25% 25% 15% 10%;
+    grid-gap: 1%;
+    color: #2e2e2e;
+    background-color: inherit;
+    opacity: 1;
+}
+
+.wrapper-landing-image {
+    text-align: center;
+    margin-top: 25px
+}
+
+
+.wrapper-landing:hover img:not(:hover) {
+    filter: grayscale(1);
+    opacity: .75;
+    transition: .5s ease-in;
+    transition: .5s ease-out;
+}
+
+
+
 /*                  */
 /*  Menu Bar        */
 /*                  */
@@ -122,22 +158,22 @@ h5 {
     padding: 0;
     background-color: #fff;
     z-index: 1;
-    
+
 }
 
 .wrapper-menu ul {
-/*    display: inline-table;*/
+    /*    display: inline-table;*/
     list-style-type: none;
     overflow: hidden;
     font-size: 12px;
     font-weight: 300;
-/*    padding: 10px;*/
+    /*    padding: 10px;*/
 
 }
 
 .wrapper-menu li {
     display: inline;
-    
+
 }
 
 .wrapper-menu a {
@@ -148,7 +184,7 @@ h5 {
 
 
 .wrapper-menu li a:hover {
-/*    background-color: #2e2e2e;*/
+    /*    background-color: #2e2e2e;*/
     color: orange;
 }
 
