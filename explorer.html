@@ -26,7 +26,7 @@
 
     <header>
         <div class="wrapper-title">
-            <h1>CCM<span style="color: orange">X</span>&nbsp <span style="font-size: 32px; font-weight: 300">Cancer Cell Model e<span style="color: orange">X</span>plorer </span></h1>
+            <h1>CM<span style="color: orange">X</span>&nbsp <span style="font-size: 32px; font-weight: 300">Cell Model e<span style="color: orange">X</span>plorer </span></h1>
         </div>
     </header>
 
@@ -34,81 +34,43 @@
         <ul>
             <li><a href="/BOEHM-Cell-Model-Explorer/index.html" class="active">Home</a></li>
             <li><a href="/BOEHM-Cell-Model-Explorer/explorer.html" class="active">CMX: Cell Model Explorer</a></li>
-            <li><a href="/BOEHM-Cell-Model-Explorer/kickstarter.html">CMK:  Cell Model Kickstarter</a></li>
+            <li><a href="/BOEHM-Cell-Model-Explorer/kickstarter.html">CMK: Cell Model Kickstarter</a></li>
         </ul>
     </div>
 
-    <div class="wrapper-Introduction">
 
-        <a class=section id=section_browse name="section_browse"></a>
-        <div class="textblock" style="
-                                        grid-column-start: 2;
-                                        grid-column-end: 5;
+    
+    <div class="wrapper-Explorer">
+
+
+        <div class="vizText" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: 2;
                                         grid-row-start: 1;
                                         grid-row-end: 1;
-                                      ">
-        </div>
-
-        <div class="textblock" style="
-                                        grid-column-start: 2;
-                                        grid-column-end: 5;
-                                        grid-row-start: 1;
-                                        grid-row-end: 1;
-                                        padding-top: 25px;
-                                      ">
-            <h2>Browse the Current Collection of Cell Models</h2>
-
-            <h5>The Broad Institute’s Cancer Cell Line Factory (CCLF) initiative aims to generate and characterize immortalized cell models isolated from patients’ tumors and make them available to the scientific community. These models are added to the Cancer Cell Line Encyclopedia (CCLE) collection. As the collection grows, there is an increasing need to understand the overall distribution of these cell models and how well they represent the diversity of cancer. Cell Model Explorer (CMX) allows users to visualize and find cell models with specific attributes in the CCLE/CCLF collection.</h5>
-        </div>
-
-        <div class="textblock" style="
-                                        grid-column-start: 2;
-                                        grid-column-end: 3;
-                                        grid-row-start: 2;
-                                        grid-row-end: 2;
-                                      ">
-            <h3>About</h3>
-            The Broad Institute’s Cancer Cell Line Factory (CCLF) initiative aims to generate and characterize immortalized cell models isolated from patients’ tumors and make them available to the scientific community. These models are added to the Cancer Cell Line Encyclopedia (CCLE) collection. <br><br>
-            As the collection grows, there is an increasing need to understand the overall distribution of these cell models and how well they represent the diversity of cancer. Cell Model Explorer (CMX) allows users to visualize and find cell models with specific attributes in the CCLE/CCLF collection.
-        </div>
-
-        <div class="textblock" style="
-                                        grid-column-start: 3;
-                                        grid-column-end: 4;
-                                        grid-row-start: 2;
-                                        grid-row-end: 2;
                                       ">
             <h3>Filter</h3>
             Narrow down the dataset to by Tumor type, Cancer type, Culture type, Source, or availability of genomic data using the checkboxes or the search bar.
-            <br><br>
-            <h3>Highlight</h3>
-            Show the distribution of specific attributes within the collection. Highlight can be applied as an <span style="color:orange;font-weight: 500">orange outer leaf</span> or as an <span style="color:red;font-weight: 500">red open circle</span> so that multiple attributes can be highlighted simulataneously. Use the highligter to explore the CCLE and CCLF and learn more about the cell model collection.
-        </div>
 
-        <div class="textblock" style="
-                                        grid-column-start: 4;
-                                        grid-column-end: 5;
-                                        grid-row-start: 2;
-                                        grid-row-end: 2;
-                                      ">
+            <h3>Highlight</h3>
+            Show the distribution of specific attributes within the collection. Highlight can be applied as an <span style="color:orange;font-weight: 500">orange outer leaf</span> or as a <span style="color:red;font-weight: 500"><br>red open circle</span> so that multiple attributes can be highlighted simulataneously. Use the highligter to explore the CCLE and CCLF and learn more about the cell model collection.
+
             <h3>Visualize</h3>
             The sunburst visualization shows the distrubution of cell models by lineage. Click on a slice to filter a lineage and click the center to go back.
-            <br><br><br>
+
             <h3>Get Data</h3>
             The data table at the bottom of the page provides information about the selected cell lines. The table can export cell model information as a CSV. The table also provides links to cell model resource pages to get more information about a specific model or access genomic data.
         </div>
 
-    </div>
-    <div class="wrapper-Explorer">
-
-        <div class="column" style="
-                                        grid-column-start: 1;
-                                        grid-column-end: 1;
+        <div class="vizControl" style="
+                                        grid-column-start: 2;
+                                        grid-column-end: 2;
                                         grid-row-start: 1;
-                                        grid-row-end: 1;
+                                        grid-row-end: 5;
                                         ">
             <!--    DRAW FILTER CHECKBOXES   -->
 
+            <!--
             <h4 style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
@@ -116,13 +78,14 @@
                                         grid-row-end: 1;
                                         ">
                 Filter</h4>
+-->
             <!--Tumor Type-->
-            <filterTextLabels style="
+            <h4 style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
                                         grid-row-start: 2;
                                         grid-row-end: 2;">
-                Tumor Type</filterTextLabels>
+                Tumor Type</h4>
             <label class="container_checkboxes" style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
@@ -151,12 +114,12 @@
                 <span class="checkmark"></span>
             </label>
             <!--Cancer Type-->
-            <filterTextLabels style="
+            <h4 style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
                                         grid-row-start: 6;
                                         grid-row-end: 6;">
-                Cancer Type</filterTextLabels>
+                Cancer Type</h4>
             <label class="container_checkboxes" style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
@@ -185,12 +148,12 @@
                 <span class="checkmark"></span>
             </label>
             <!--Culture Type-->
-            <filterTextLabels style="
+            <h4 style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
                                         grid-row-start: 10;
                                         grid-row-end: 10;">
-                Culture Type </filterTextLabels>
+                Culture Type </h4>
             <label class="container_checkboxes" style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
@@ -237,12 +200,12 @@
                 <span class="checkmark"></span>
             </label>
             <!--Source-->
-            <filterTextLabels style="
+            <h4 style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
                                         grid-row-start: 16;
                                         grid-row-end: 16;">
-                Source</filterTextLabels>
+                Source</h4>
             <label class="container_checkboxes" style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
@@ -280,11 +243,11 @@
                 <span class="checkmark"></span>
             </label>
             <!--Genomics-->
-            <filterTextLabels style="
+            <h4 style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
                                         grid-row-start: 21;
-                                        grid-row-end: 21;"> Genomics</filterTextLabels>
+                                        grid-row-end: 21;"> Genomics</h4>
             <label class="container_checkboxes" style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
@@ -358,12 +321,12 @@
                 <span class="checkmark"></span>
             </label>
             <!--Gender-->
-            <filterTextLabels style="
+            <h4 style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
                                         grid-row-start: 30;
                                         grid-row-end: 30;">
-                Gender </filterTextLabels>
+                Gender </h4>
             <label class="container_checkboxes" style="
                                         grid-column-start: 1;
                                         grid-column-end: 1;
@@ -412,12 +375,15 @@
 
             <!--    DRAW HIGHLIGHTER RADIO BUTTONS   -->
 
+            <!--
             <h4 style="
                                         grid-column-start: 2;
                                         grid-column-end: 2;
                                         grid-row-start: 1;
                                         grid-row-end: 1;">
                 Highlight</h4>
+-->
+
             <label class="container_highlighter" style="
                                         grid-column-start: 2;
                                         grid-column-end: 2;
@@ -843,10 +809,10 @@
 
 
         <div class="plot" id="plot" style="
-                                        grid-column-start: 1;
+                                        grid-column-start: 3;
                                         grid-column-end: end;
                                         grid-row-start: 1;
-                                        grid-row-end: 1;
+                                        grid-row-end: 5;
                                       ">
             <script src="CME_v5.0.js"></script>
         </div>
@@ -933,4 +899,6 @@
 
     <footer></footer>
 
-</body></html>
+</body>
+
+</html>
