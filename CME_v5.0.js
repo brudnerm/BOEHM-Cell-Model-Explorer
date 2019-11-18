@@ -721,13 +721,27 @@ function draw(loadedData) {
         d3.select(this).select("path")
             .style("stroke-width",
                 function (d) {
-                    if (d.depth == 3) {
-                        return 1
-                    } else {
+                if (checkDepth == 0) {
+                    if (d.depth != 3) {
                         return 5
+                    } else {
+                        return 0
                     }
-                })
-            .style("stroke", "white")
+                } else if (checkDepth != 0) {
+                    return 5
+                }
+            })
+            .style("stroke", function (d) {
+                if (checkDepth == 0) {
+                    if (d.depth == 3) {
+                        return 0
+                    } else {
+                        return "white"
+                    }
+                } else if (checkDepth != 0) {
+                    return "white"
+                }
+            })
 
         d3.select(this).moveToFront()
 
@@ -736,8 +750,20 @@ function draw(loadedData) {
     function mouseout(d) {
         d3.select(this).select("path")
             .style("stroke-width", 1)
-            .style("stroke", "white")
+            .style("stroke", function (d) {
+                if (checkDepth == 0) {
+                    if (d.depth == 3) {
+                        return 0
+                    } else {
+                        return "white"
+                    }
+                } else if (checkDepth != 0) {
+                    return "white"
+                }
+            })
     }
+
+
 
 
 
@@ -846,7 +872,7 @@ function draw(loadedData) {
                 }
             })
             .style("stroke", function (d) {
-                if (d.depth == 3) {
+                if (checkDepth != 0 && d.depth == 3) {
                     return "orange"
                 } else {
                     return "white"
