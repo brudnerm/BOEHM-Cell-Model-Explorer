@@ -8,6 +8,7 @@ body {
     font-size: 12px;
     font-weight: 300;
     color: #2e2e2e;
+
     background-color: #fff;
 }
 
@@ -172,6 +173,7 @@ a:visited{
     background-color: white;
     z-index: 1;
     border-bottom: solid lightgray 1px;
+
 }
 
 .wrapper-menu ul {
@@ -180,9 +182,7 @@ a:visited{
     overflow: hidden;
     font-size: 14px;
     font-weight: 400;
-    
     /*    padding: 10px;*/
-
 }
 
 .wrapper-menu li {
@@ -191,8 +191,8 @@ a:visited{
 }
 
 .wrapper-menu a {
-    color: #2e2e2e;
-    padding: 0px 20px;
+    color: #616161;
+    padding: 0px 50px;
     text-decoration: none;
 }
 
