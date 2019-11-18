@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="css/style.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/fc-3.3.0/fh-3.1.6/r-2.2.3/rg-1.1.1/rr-1.2.6/sc-2.0.1/sl-1.3.1/datatables.min.css" />
+    <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/css/dataTables.checkboxes.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/fc-3.3.0/fh-3.1.6/r-2.2.3/rg-1.1.1/rr-1.2.6/sc-2.0.1/sl-1.3.1/datatables.min.js"></script>
+    <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/js/dataTables.checkboxes.min.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="lib/queue.min.js"></script>
+
+</head>
+
+<body>
+
+    <header>
+        <div class="wrapper-title">
+            <h1>CM<span style = "color: orange">K</span>&nbsp <span style = "font-size: 32px; font-weight: 300">Cell Model <span style = "color: orange">Kickstarter </span> </span></h1>
+        </div>
+    </header>
+
+
+    <div class=wrapper-menu>
+        <ul>
+            <li><a href="/BOEHM-Cell-Model-Explorer/index.html" class="active">Home</a></li>
+            <li><a href="/BOEHM-Cell-Model-Explorer/explorer.html" class="active">CMX: Cell Model Explorer</a></li>
+            <li><a href="/BOEHM-Cell-Model-Explorer/kickstarter.html">CMK:  Cell Model Kickstarter</a></li>
+        </ul>
+    </div>
+
+    <a class=section id=section_vote name="section_vote"></a>
+    <div class="wrapper-Kickstarter">
+
+        <div class="textblock" style="
+                                        grid-column-start: 2;
+                                        grid-column-end: 3;
+                                        grid-row-start: 3;
+                                        grid-row-end: 3;
+                                        
+                                      ">
+            <h4>Vote for New Cell Models</h4>
+            The Broad Institute’s Cancer Cell Line Factory (CCLF) initiative aims to generate and characterize immortalized cell models isolated from patients’ tumors and make them available to the scientific community. These models are added to the Cancer Cell Line Encyclopedia (CCLE) collection.
+        </div>
+        <div class="textblock" style="
+                                        grid-column-start: 3;
+                                        grid-column-end: 4;
+                                        grid-row-start: 3;
+                                        grid-row-end: 3;
+                                        
+                                      ">
+            <h4>Help Us Prioritize</h4>
+            The Broad Institute’s Cancer Cell Line Factory (CCLF) initiative aims to generate and characterize immortalized cell models isolated from patients’ tumors and make them available to the scientific community. These models are added to the Cancer Cell Line Encyclopedia (CCLE) collection.
+        </div>
+        <div class="textblock" style="
+                                        grid-column-start: 4;
+                                        grid-column-end: 5;
+                                        grid-row-start: 3;
+                                        grid-row-end: 3;
+                                        
+                                      ">
+            <h4>Kickstart Cell Model Accession</h4>
+            The Broad Institute’s Cancer Cell Line Factory (CCLF) initiative aims to generate and characterize immortalized cell models isolated from patients’ tumors and make them available to the scientific community. These models are added to the Cancer Cell Line Encyclopedia (CCLE) collection.
+        </div>
+
+        <div class="topnav" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: end;
+                                        grid-row-start: 4;
+                                        grid-row-end: 4;
+                                      ">
+            <form class="searchBar" action="">
+                <input type="text" id="searchTumors" placeholder="Search our cryopreserved tumor stocks...">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+
+        <div class="tumorTable" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: end;
+                                        grid-row-start: 5;
+                                        grid-row-end: 5;
+                                      ">
+
+            <form id="frm-example">
+
+                <table id="table_tumors" class="display">
+                    <thead style="text-align: left;">
+                        <tr>
+                            <th>All</th>
+                            <th>Tissue ID</th>
+                            <th>Primary Disease</th>
+                            <th>Disease Subtype</th>
+                            <th>Progress</th>
+                            <th>Genomic QC</th>
+                            <th>Tumor Type</th>
+                            <th>Cancer Type</th>
+                            <th>Treatment History</th>
+                            <th>Gender</th>
+                            <th>Age</th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </form>
+        </div>
+        <div class="textblock" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: end;
+                                        grid-row-start: 6;
+                                        grid-row-end: 6;
+                                        text-align: center;
+                                        margin-bottom: 150px;
+                                      ">
+            <h3>Submit your vote to the CCLF</h3><br>
+            <form action="/BOEHM-Cell-Model-Explorer/voteSubmitted.html">
+                Email: <input type= "text" name="email">
+                <button class="button buttonSubmit" type="submit">Kickstart</button>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="plot_ks" id="plot_ks" style="
+                                        grid-column-start: 1;
+                                        grid-column-end: end;
+                                        grid-row-start: 1;
+                                        grid-row-end: 1;
+                                      ">
+        <script src="kickstarter_v1.0.js"></script>
+    </div>
+
+
+
+    <a class=section id=section_donate name="section_donate"></a>
+
+    <!--
+        <div class="box a">A</div>
+        <div class="box b">B</div>
+        <div class="box c">C</div>
+        <div class="box d">D</div>
+        <div class="box e">E</div>
+        <div class="box f">F</div>
+        <div class="box a">A</div>
+        <div class="box b">B</div>
+        <div class="box c">C</div>
+        <div class="box d">D</div>
+        <div class="box e">E</div>
+        <div class="box f">F</div>
+-->
+
+
+
+
+
+
+
+
+
+
+    <footer></footer>
+
+</body></html>

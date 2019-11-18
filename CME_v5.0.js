@@ -270,8 +270,7 @@ function getName(name) {
 ////////////////////////////////////////////////////////////////////////////////////
 
 queue()
-    .defer(d3.csv, "data/test.csv", parse)
-    //    .defer(d3.csv, "data/data_global_select.csv", parse) //Local data load
+    .defer(d3.csv, "https://docs.google.com/spreadsheets/d/e/2PACX-1vR9k1hVV00IO1JMiPm2t4b6nt4Ro1831ytv6PsnDaVJW1JJyJoqn9DIR76zK3pUtsPRFlrsJJmAPQxY/pub?gid=0&single=true&output=csv", parse)
     .await(dataLoaded);
 
 function parse(d) {
@@ -396,123 +395,6 @@ function buildHierarchy(csv) {
     console.log(root);
     identifyDepth(root)
 };
-
-
-
-////////////////////////////////////////////////////////////////////////////////////
-//  Make Table for Tumor
-////////////////////////////////////////////////////////////////////////////////////
-
-function makeTableTumors(data) {
-
-    $(document).ready(function () {
-        $('#table_tumors').DataTable({
-            data: data,
-            columns: [
-                {
-                    data: null
-                },
-                {
-                    data: 'cellLineName'
-                },
-                {
-                    data: 'primaryDisease'
-                },
-                {
-                    data: 'Subtype'
-                },
-                {
-                    data: 'level'
-                },
-                {
-                    data: 'RNAseq'
-                },
-                {
-                    data: 'tumorType'
-                },
-                {
-                    data: 'cancerType'
-                },
-                {
-                    data: 'treatmentHistory'
-                },
-                {
-                    data: 'gender'
-                },
-                {
-                    data: 'age'
-                }
-            ],
-            //            scrollY: 325,
-            deferRender: true,
-            //            scroller: true,
-            //            dom: 'Bfrtip',
-            //            buttons: ['csv'],
-            responsive: true,
-            search: true,
-            bSortClasses: false,
-            columnDefs: [
-                {
-                    classname: "select-checkbox",
-                    targets: 0,
-                    checkboxes: {
-                        selectRow: true
-                    }
-         },
-                {
-                    targets: 4,
-                    render: function (data) {
-                        // Progress Bar
-                        //                        return '<td data-order="' + data + '"><progress value="' + data + '" max="5"></progress></td>'
-
-                        // Custom Levels
-                        return '<img src="images/step' + data + '.png" style="height:10px;width:100px;" />'
-                    }
-         }
-      ],
-            'select': {
-                'style': 'multi'
-            }
-        });
-
-        // Handle form submission event 
-        $('#frm-example').on('submit', function (e) {
-            var form = this;
-            var rows_selected = table.column(0).checkboxes.selected();
-            // Iterate over all selected checkboxes
-            $.each(rows_selected, function (index, rowId) {
-                // Create a hidden element 
-                $(form).append(
-                    $('<input>')
-                    .attr('type', 'hidden')
-                    .attr('name', 'id[]')
-                    .val(rowId)
-                );
-            });
-
-            // Output form data to a console     
-            $('#example-console-rows').text(rows_selected.join(","));
-
-            // Output form data to a console     
-            $('#example-console-form').text($(form).serialize());
-
-            // Remove added elements
-            $('input[name="id\[\]"]', form).remove();
-
-            // Prevent actual form submission
-            e.preventDefault();
-
-            console.log(form)
-        });
-
-
-        // Use Search Bar '#searchCellLines' to Filter Table
-        var table_tumors = $('#table_tumors').DataTable();
-        $('#searchTumors').keyup(function () {
-            table_tumors.search($(this).val()).draw();
-        });
-    });
-}
 
 
 
@@ -716,7 +598,7 @@ function draw(loadedData) {
     ////////////////////////////////////////////////////////////////////////////////////
     //  Draw Sunburst Arc-Path
     ////////////////////////////////////////////////////////////////////////////////////
-
+    var checkDepth = 0;
     var path = g.append("path")
         //        .attr("class", ".outerhighlight")
         .attr("d", arc)
@@ -884,6 +766,8 @@ function draw(loadedData) {
 
 
 
+
+
     ////////////////////////////////////////////////////////////////////////////////////
     //  Click
     ////////////////////////////////////////////////////////////////////////////////////
@@ -990,16 +874,11 @@ function draw(loadedData) {
                 }
             })
             .style("stroke", function (d) {
-                if (checkDepth == 0) {
-                    if (d.depth == 3) {
-                        return "orange"
-                    } else {
-                        return 0
-                    }
-                } else if (checkDepth != 0) {
+                if (checkDepth != 0 && d.depth == 3) {
+                    return "orange"
+                } else {
                     return "white"
                 }
-
             })
             .each("end", function (e, i) {
                 if (e.x >= d.x && e.x < (d.x + d.dx)) {
