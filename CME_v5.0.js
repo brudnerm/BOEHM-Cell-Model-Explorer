@@ -579,6 +579,7 @@ function updateOuterhighlight() {
 ////////////////////////////////////////////////////////////////////////////////////
 //  Draw Function
 ////////////////////////////////////////////////////////////////////////////////////
+var checkDepth = 0;
 
 function draw(loadedData) {
 
@@ -774,6 +775,7 @@ function draw(loadedData) {
 
 
     function click(d) {
+        var checkDepth = d.depth;
 
         console.log("clicked", d)
 
