@@ -873,10 +873,18 @@ function draw(loadedData) {
                     }
                 }
             })
-            .style("stroke", function (d) {
-                if (checkDepth != 0 && d.depth == 3) {
-                    return "orange"
-                } else {
+            .style("stroke", function (e) {
+                if (isDepth == 0) {
+                    if (e.depth < 3) {
+                        return "white"
+                    } else if (e.depth == 3) {
+                        if (e.info[highlightField] == highlightTarget) {
+                            return "orange"
+                        } else {
+                            return 0
+                        }
+                    }
+                } else if (isDepth > 0){
                     return "white"
                 }
             })
