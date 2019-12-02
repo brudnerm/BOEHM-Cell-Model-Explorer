@@ -200,7 +200,7 @@ function computeTextRotation(d) {
     return (ang > 90) ? 180 + ang : ang;
 }
 
-var setLocationCenter = "translate(0, 45)"
+var setLocationCenter = "translate(0, 0)"
 
 function setLocation(d, offsetValue) {
 
@@ -231,17 +231,18 @@ function namePlusTextNumber(input) {
 }
 
 function namePlusParaNumber(input) {
+    var truncateLength = 130;
     var truncate;
-    if (input.name.length > 13) {
+    if (input.name.length > truncateLength) {
         truncate = "..."
     } else {
         var truncate = ""
     }
     if (input.depth != 1) {
         if (computeTextRotation(input) > 90) {
-            return "(" + input.value + ") " + input.name.substring(0, 13) + truncate;
+            return "(" + input.value + ") " + input.name.substring(0, truncateLength) + truncate;
         } else {
-            return input.name.substring(0, 13) + truncate + " (" + input.value + ")";
+            return input.name.substring(0, truncateLength) + truncate + " (" + input.value + ")";
         }
     } else {
         if (computeTextRotation(input) > 90) {
@@ -550,11 +551,12 @@ function updateOuterhighlight() {
             } else if (e.depth == 2) {
                 return 1
             } else if (e.depth == 3) {
-                if (e.info[highlightField] == highlightTarget) {
-                    return 1
-                } else {
-                    return 0
-                }
+                return 1
+//                if (e.info[highlightField] == highlightTarget) {
+//                    return 1
+//                } else {
+//                    return 0
+//                }
             }
         })
         .style("fill", function (d) {
@@ -611,11 +613,12 @@ function draw(loadedData) {
             } else if (d.depth == 2) {
                 return 1
             } else if (d.depth == 3) {
-                if (d.info[highlightField] == highlightTarget) {
-                    return 1
-                } else {
-                    return 0
-                }
+                return 1
+//                if (d.info[highlightField] == highlightTarget) {
+//                    return 1
+//                } else {
+//                    return 0
+//                }
             }
         })
         .style("fill", function (d) {
@@ -634,11 +637,12 @@ function draw(loadedData) {
             };
         })
         .style("stroke", function (d) {
-            if (d.depth == 3) {
-                return "orange"
-            } else {
-                return "white"
-            }
+            return "white"
+//            if (d.depth == 3) {
+//                return "orange"
+//            } else {
+//                return "white"
+//            }
         })
         .style("stroke-width", 1)
 
@@ -702,7 +706,8 @@ function draw(loadedData) {
 
     vis.append("text")
         .attr("id", "go-back")
-        .html("Back")
+        .html("")
+//        .html("Back")
         .attr("x", 0)
         .attr("y", 0)
         .attr("text-anchor", "middle")
@@ -845,7 +850,7 @@ function draw(loadedData) {
                     if (e.depth == 0) {
                         return 0
                     } else if (e.depth == 1) {
-                        return .5
+                        return 0
                     } else if (e.depth == 2) {
                         return 1
                     } else if (e.depth == 3) {
@@ -930,6 +935,8 @@ function draw(loadedData) {
                                     return namePlusTextNumber(f)
                                 } else if (f.depth == 2) {
                                     return namePlusParaNumber(f)
+                                } else if (f.depth == 3) {
+                                    return f.name 
                                 }
                             } else if (isDepth == 2) {
                                 if (f.depth == 2) {
@@ -955,6 +962,8 @@ function draw(loadedData) {
                                     return setLocationCenter
                                 } else if (f.depth == 2) {
                                     return setLocation(f, 10)
+                                } else if (f.depth == 3) {
+                                    return setLocation(f, 12)
                                 }
                             } else if (isDepth == 2) {
                                 if (f.depth == 2) {
@@ -982,6 +991,12 @@ function draw(loadedData) {
                                     }
                                 } else if (f.depth == 1) {
                                     return "middle"
+                                } else if (f.depth == 3) {
+                                    if (computeTextRotation(f) > 90) {
+                                        return "start"
+                                    } else {
+                                        return "end"
+                                    }
                                 }
                             } else if (isDepth == 2) {
                                 if (f.depth == 2) {

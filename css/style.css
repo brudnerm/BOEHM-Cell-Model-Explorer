@@ -385,7 +385,7 @@ div.dt-buttons {
 
 .labels-lg {
     font-family: 'Roboto Condensed', sans-serif;
-    font-size: 12px;
+    font-size: 16px;
 }
 
 .labels-extralg {
@@ -538,4 +538,46 @@ div.dt-buttons {
     box-sizing: border-box;
     background-color: white;
     border: 2px solid red;
+}
+
+
+
+.appsMaterialWizButtonPaperbuttonContent .appsMaterialWizButtonPaperbuttonLabel {
+    display: inline-block;
+    margin: 0;
+}
+.appsMaterialWizButtonPaperbuttonFilled {
+    background: #fff;
+    color: #fff;
+}
+.quantumWizButtonPaperbuttonLabel {
+    display: inline-block;
+    margin: .5em;
+}
+.appsMaterialWizButtonPaperbuttonEl {
+    transition: box-shadow 280ms cubic-bezier(0.4,0.0,0.2,1);
+    -webkit-font-smoothing: antialiased;
+    -webkit-user-select: none;
+    -webkit-transition: background .2s .1s;
+    transition: background .2s .1s;
+    border: 0;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    color: #5f6368;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Google Sans',Roboto,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: .25px;
+    line-height: 36px;
+    text-decoration: none;
+    text-transform: none;
+    min-width: auto;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 0;
 }
