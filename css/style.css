@@ -368,19 +368,19 @@ div.dt-buttons {
 .labels-subtype {
     font-family: 'Roboto Condensed', sans-serif;
     fill: white;
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .labels-cellLine {
     font-family: 'Roboto Condensed', sans-serif;
     fill: white;
-    font-size: 8px;
+    font-size: 7px;
 }
 
 .labels-source {
     font-family: 'Roboto Condensed', sans-serif;
     fill: white;
-    font-size: 12px;
+    font-size: 16px;
 }
 
 .labels-lg {
@@ -390,7 +390,8 @@ div.dt-buttons {
 
 .labels-extralg {
     font-family: 'Roboto', sans-serif;
-    font-size: 14px;
+    font-size: 18px;
+    font-weight:500;
 }
 
 .labels-back {

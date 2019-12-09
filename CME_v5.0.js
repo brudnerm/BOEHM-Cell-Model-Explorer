@@ -200,7 +200,7 @@ function computeTextRotation(d) {
     return (ang > 90) ? 180 + ang : ang;
 }
 
-var setLocationCenter = "translate(0, 0)"
+var setLocationCenter = "translate(0, 45)"
 
 function setLocation(d, offsetValue) {
 
@@ -570,7 +570,7 @@ function updateOuterhighlight() {
                 if (d.info[highlightField] == highlightTarget) {
                     return "orange"
                 } else {
-                    return "gainsboro"
+                    return "silver"
                 }
             };
         })
@@ -632,7 +632,7 @@ function draw(loadedData) {
                 if (d.info[highlightField] == highlightTarget) {
                     return "orange"
                 } else {
-                    return "gainsboro"
+                    return "silver"
                 }
             };
         })
@@ -850,11 +850,13 @@ function draw(loadedData) {
                     if (e.depth == 0) {
                         return 0
                     } else if (e.depth == 1) {
-                        return 0
+                        return .5
                     } else if (e.depth == 2) {
                         return 1
                     } else if (e.depth == 3) {
                         if (e.info[highlightField] == highlightTarget) {
+                            return 1
+                        } else {
                             return 1
                         }
                     }
